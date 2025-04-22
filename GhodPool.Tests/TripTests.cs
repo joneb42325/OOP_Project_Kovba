@@ -109,7 +109,7 @@ namespace GhodPool.Tests
         {
             //Arrange
             var trip = GetValidTrip();
-            int price = 100;
+            int price = -100;
 
             //Act & Assert
             Assert.ThrowsException<ArgumentException>(() =>
@@ -136,7 +136,7 @@ namespace GhodPool.Tests
         {
             //Arrange
             var trip = GetValidTrip();
-            trip.DepartureTime = DateTime.Now.AddHours(23); 
+            trip.DepartureTime = DateTime.UtcNow.AddHours(23); 
             trip.ArrivalDate = trip.DepartureTime.AddHours(3);
 
             //Act & Assert
@@ -253,12 +253,12 @@ namespace GhodPool.Tests
         {
             //Arrange
             var trip = GetValidTrip();
-            var before = DateTime.Now;
+            var before = DateTime.UtcNow;
 
             //Act
             trip.SetUpdatedAt();
 
-            var after = DateTime.Now;
+            var after = DateTime.UtcNow;
 
             //Assert
             Assert.IsTrue(trip.UpdatedAt >= before && trip.UpdatedAt <= after);

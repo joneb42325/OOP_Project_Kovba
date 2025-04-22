@@ -24,7 +24,7 @@ namespace GhodPool.Tests
             };
 
             trip = new Trip("Odessa", "Ambulatorna 1", "Kharkiv", "Sumskaya 5",
-                    DateTime.Now, DateTime.Now.AddHours(8), "BMW M5", 3, 500, driver.Id, driver);
+                    DateTime.UtcNow, DateTime.UtcNow.AddHours(8), "BMW M5", 3, 500, driver.Id, driver);
 
             user = new ApplicationUser
             {  
@@ -136,7 +136,7 @@ namespace GhodPool.Tests
         {
             //Arrange
             var booking = GetValidBooking();
-            trip.DepartureTime = DateTime.Now.AddDays(2);
+            trip.DepartureTime = DateTime.UtcNow.AddDays(2);
             trip.ArrivalDate = trip.DepartureTime.AddHours(3);
 
             //Act
@@ -151,7 +151,7 @@ namespace GhodPool.Tests
         {
             //Arrange
             var booking = GetValidBooking();
-            trip.DepartureTime = DateTime.Now.AddHours(23);
+            trip.DepartureTime = DateTime.UtcNow.AddHours(23);
             trip.ArrivalDate = trip.DepartureTime.AddHours(3);
 
             //Act & Assert
@@ -197,7 +197,7 @@ namespace GhodPool.Tests
             // Arrange
             var anotherTrip = new Trip(
                 "Kyiv", "Street 1", "Lviv", "Street 2",
-                DateTime.Now, DateTime.Now.AddHours(5),
+                DateTime.UtcNow, DateTime.UtcNow.AddHours(5),
                 "Tesla", 4, 100, driver.Id, driver
             );
 
@@ -218,12 +218,12 @@ namespace GhodPool.Tests
         {
             //Arrange
             var booking = GetValidBooking();
-            var before = DateTime.Now;
+            var before = DateTime.UtcNow;
 
             //Act
             booking.SetUpdatedAt();
 
-            var after = DateTime.Now;
+            var after = DateTime.UtcNow;
 
             //Assert
             Assert.IsTrue(booking.UpdatedAt >= before && booking.UpdatedAt <= after);
