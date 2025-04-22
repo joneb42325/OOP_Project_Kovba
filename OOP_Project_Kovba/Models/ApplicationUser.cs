@@ -22,7 +22,7 @@ namespace OOP_Project_Kovba.Models
 
         public void ChangeFullName(string newName)
         {
-            throw new NotImplementedException();
+            FullName = newName;
         }
     }
 }

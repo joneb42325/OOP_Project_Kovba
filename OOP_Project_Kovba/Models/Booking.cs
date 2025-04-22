@@ -25,6 +25,9 @@ namespace OOP_Project_Kovba.Models
             get => _seatsBooked;
             set
             {
+                if (value > Trip.MaxPassengers)
+                    throw new ArgumentException($"Кількість місць не може перевищувати {Trip.MaxPassengers} для цієї поїздки.");
+
                 if (value < 1)
                     throw new ArgumentException("Має бути заброньовано принаймні одне місце");
     
@@ -58,7 +61,11 @@ namespace OOP_Project_Kovba.Models
             }
         }
 
-        public bool IsCancelled => _isCancelled;
+        public bool IsCancelled
+        {
+            get => _isCancelled;
+            set { _isCancelled = value; }
+        }
 
         public ICollection<Booking>? Bookings { get; set; }
 
@@ -75,22 +82,27 @@ namespace OOP_Project_Kovba.Models
 
         public void ChangeSeats(int newSeats)
         {
-            throw new NotImplementedException();
+            SeatsBooked = newSeats;
         }
 
         public override string GetInfo()
         {
-            throw new NotImplementedException();
+            return $"Поїздка: {Trip.FromCity} → {Trip.ToCity}, " +
+                   $"Кількість місць: {SeatsBooked}, " +
+                   $"Модель авто: {Trip.CarModel}, " +
+                   $"Ціна: {Trip.Price} грн";
         }
 
         public void CancelBooking()
         {
-            throw new NotImplementedException();
+            if ((Trip.DepartureTime - DateTime.UtcNow).TotalHours < 24)
+                throw new InvalidOperationException("Trip cannot be canceled less than 24 hours before departure.");
+            IsCancelled = true;
         }
 
         public static bool IsUserAlreadyBooked(string userId, string tripId, ICollection<Booking> bookings)
         {
-            throw new NotImplementedException();
+            return bookings.Any(booking => booking.UserId == userId && booking.TripId == tripId);
         }
     }
 }

@@ -24,7 +24,10 @@ namespace GhodPool.Tests
             };
 
             trip = new Trip("Odessa", "Ambulatorna 1", "Kharkiv", "Sumskaya 5",
-                    DateTime.UtcNow, DateTime.UtcNow.AddHours(8), "BMW M5", 3, 500, driver.Id, driver);
+                    DateTime.UtcNow.AddHours(1), DateTime.UtcNow.AddHours(8), "BMW M5", 3, 500, driver.Id, driver)
+            {
+                Id = "qfz2",
+            };
 
             user = new ApplicationUser
             {  
@@ -129,6 +132,8 @@ namespace GhodPool.Tests
             Assert.IsTrue(info.Contains("Odessa"));
             Assert.IsTrue(info.Contains("Kharkiv"));
             Assert.IsTrue(info.Contains("2"));
+            Assert.IsTrue(info.Contains("BMW M5"));
+            Assert.IsTrue(info.Contains("500"));
         }
 
         [TestMethod]
@@ -160,6 +165,7 @@ namespace GhodPool.Tests
             );
         }
 
+        [TestMethod]
         public void IsAlreadyBooked_UserHasBooking_ReturnsTrue()
         {
             //Arrange
@@ -176,6 +182,7 @@ namespace GhodPool.Tests
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
         public void IsAlreadyBooked_UserHasNoBooking_ReturnsFalse()
         {
             //Arrange
@@ -197,9 +204,10 @@ namespace GhodPool.Tests
             // Arrange
             var anotherTrip = new Trip(
                 "Kyiv", "Street 1", "Lviv", "Street 2",
-                DateTime.UtcNow, DateTime.UtcNow.AddHours(5),
+                DateTime.UtcNow.AddHours(1), DateTime.UtcNow.AddHours(5),
                 "Tesla", 4, 100, driver.Id, driver
-            );
+            )
+            { Id = "fsdf" };
 
             var bookings = new List<Booking>
             {

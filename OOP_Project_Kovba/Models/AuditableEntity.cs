@@ -4,17 +4,32 @@
     {
         private DateTime _createdAt;
         private DateTime _updatedAt;    
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime UpdatedAt { get; set; }
+        public DateTime CreatedAt
+        {
+            get => _createdAt;
+            set 
+            {
+                _createdAt = value;
+            }
+        }
+        public DateTime UpdatedAt
+        {
+            get => _updatedAt;
+            set
+            {
+                _updatedAt = value;
+            }
+        }
 
+        public AuditableEntity() {
+            CreatedAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
+        }
         public void SetUpdatedAt()
         {
             UpdatedAt = DateTime.UtcNow;
         }
-        
-        public virtual string GetInfo()
-        {
-            throw new NotImplementedException();
-        }
+
+        public abstract string GetInfo();
     }
 }
