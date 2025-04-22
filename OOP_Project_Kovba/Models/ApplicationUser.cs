@@ -1,8 +1,24 @@
-﻿namespace OOP_Project_Kovba.Models
+﻿using Microsoft.AspNetCore.Identity;
+using System;
+
+namespace OOP_Project_Kovba.Models
 {
-    public class ApplicationUser 
+    public class ApplicationUser : IdentityUser
     {
-        public string FullName { get; set; } = string.Empty;
+        private string _fullName = string.Empty;
+
+        public string FullName
+        {
+            get => _fullName;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Повне ім'я не може бути порожнім або містити лише пробіли");
+                if (value.Length < 5)
+                    throw new ArgumentException("Повне ім'я повинно містити принаймні 5 символів");
+                _fullName = value;
+            }
+        }
 
         public void ChangeFullName(string newName)
         {

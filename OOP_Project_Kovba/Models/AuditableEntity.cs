@@ -2,6 +2,8 @@
 {
     public abstract class AuditableEntity
     {
+        private DateTime _createdAt;
+        private DateTime _updatedAt;    
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; }
 
