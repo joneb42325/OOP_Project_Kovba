@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%; /* Страница должна занимать всю высоту */
+    display: flex; /* Используем flexbox для всего тела */
+    flex-direction: column; /* Элементы по вертикали */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    flex: 1; /* Контент будет занимать всё пространство */
+}
+
+.footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    max-width: 700px;
+    margin: 80px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #ff7f00;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        color: #666;
+        margin: 5px 0px;
+        font-size: 20px;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 20px;
+    }
+
+        .form-group input:focus {
+            border-color: #ff7f00;
+            outline: none;
+        }
+
+button[type="submit"] {
+    width: 40%;
+    padding: 12px;
+    background-color: #ff7f00;
+    color: white;
+    font-size: 22px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block; /* Делаем кнопку блочным элементом */
+    margin: 35px auto; /* Центрируем по горизонтали */
+    font-weight: bold;
+}
+
+    button[type="submit"]:hover {
+        background-color: #e76f00;
+    }
+
+p.center-align {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+

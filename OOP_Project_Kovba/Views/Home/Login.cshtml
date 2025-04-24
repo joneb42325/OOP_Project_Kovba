@@ -1,0 +1,41 @@
+﻿@model  OOP_Project_Kovba.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Авторизація";
+}
+<head>
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+<div class="container">
+    <h2 class="center-align">Авторизація</h2>
+
+    <form asp-controller="Account" asp-action="Login" method="post">
+        <!-- Email -->
+        <div class="form-group">
+            <label asp-for="Email">Електронна пошта</label>
+            <input asp-for="Email" class="form-control" required />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <label asp-for="Password">Пароль</label>
+            <input asp-for="Password" class="form-control" required />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+       
+        <!-- Remember Me -->
+        <div class="form-group remember-me">
+            @*  <input type="checkbox" id="RememberMe" name="RememberMe" /> *@
+            <input asp-for="RememberMe" />
+            <label asp-for="RememberMe">Запам'ятати мене</label>
+            <span asp-validation-for="RememberMe" class="text-danger"></span>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn">Увійти</button>
+    </form>
+
+    <p class="center-align">
+        Немає акаунту? <a href="/Home/Register">Зареєструватися</a>
+    </p>
+</div>

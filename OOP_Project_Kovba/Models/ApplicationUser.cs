@@ -24,5 +24,8 @@ namespace OOP_Project_Kovba.Models
         {
             FullName = newName;
         }
+        
+        public ICollection<Trip> trips { get; set; } = new List <Trip>();
+        public ICollection<Booking> bookings { get; set; } = new List<Booking>();
     }
 }

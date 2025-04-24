@@ -1,0 +1,94 @@
+﻿@model OOP_Project_Kovba.ViewModels.CreateTripViewModel
+@{
+    Layout = "_Layout_Authorised";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Створення маршруту</title>
+    <link rel="stylesheet" href="~/css/post.css">
+</head>
+<body>
+    <div class="content">
+        <!-- Левая часть: Форма создания маршрута -->
+        <div class="container">
+            <h2>Створення маршруту</h2>
+            <form asp-controller="Trip" asp-action="CreateTrip" method="post">
+                <div class="form-group">
+                    <label asp-for="FromCity">Звідки (Місто)</label>
+                    <input asp-for="FromCity" id="FromCity" name="FromCity">
+                    <span asp-validation-for="FromCity" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FromStreetAndHouse">Вулиця та адрес (через кому)</label>
+                    <input asp-for="FromStreetAndHouse" id="FromStreetAndHouse" name="FromStreetAndHouse">
+                    <span asp-validation-for="FromStreetAndHouse" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ToCity">Куди (Місто)</label>
+                    <input asp-for="ToCity" required>
+                    <span asp-validation-for="ToCity" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ToStreetAndHouse">Вулиця та адрес (через кому)</label>
+                    <input asp-for="ToStreetAndHouse" id="ToStreetAndHouse" name="ToStreetAndHouse">
+                    <span asp-validation-for="ToStreetAndHouse" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DepartureDate">Дата відправлення</label>
+                    <input asp-for="DepartureDate" type="datetime-local" required>
+                    <span asp-validation-for="DepartureDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ArrivalDate">Дата прибуття</label>
+                    <input asp-for="ArrivalDate" type="datetime-local" required>
+                    <span asp-validation-for="ArrivalDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="MaxPassengers">Кількість пасажирів</label>
+                    <select asp-for="MaxPassengers">
+                        <option value="1">1 пасажир</option>
+                        <option value="2">2 пасажири</option>
+                        <option value="3">3 пасажири</option>
+                        <option value="4">4 пасажири</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CarModel">Модель авто</label>
+                    <input asp-for="CarModel" required>
+                    <span asp-validation-for="CarModel" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Price">Ціна (грн)</label>
+                    <input asp-for="Price" type="number" min="0" required>
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Comment">Коментар (необов'язково)</label>
+                    <input asp-for="Comment">
+                </div>
+
+                <button type="submit">Додати маршрут</button>
+            </form>
+        </div>
+
+        <!-- Правая часть: Блок с информацией -->
+        <div class="info-box">
+            <h3>Станьте водієм GhodPool - Беріть попутників та економте на бензині.</h3>
+            <img src="~/img/driver.jpg" alt="Станьте водієм" class="info-img">
+        </div>
+    </div>
+</body>
+</html>
+

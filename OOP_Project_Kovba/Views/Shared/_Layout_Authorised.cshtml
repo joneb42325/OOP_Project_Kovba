@@ -1,0 +1,54 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="stylesheet" href="~/css/authorised.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-left">
+                <a href="/"><img src="~/img/logo.png" asp-append-version="true" alt="GhodPool" class="logo"></a>
+                <span class="site-name">GhodPool</span>
+            </div>
+            <div class="nav-right">
+                <a href="/Trip/CreateTrip" class="post-trip">+ Опублікувати поїздку</a>
+                <a href="/Home/PlannedTrips" class="planned-trips">Заплановані поїздки</a>
+                <a href="#" id="profile-link">
+                    <img src="~/img/profile.png" asp-append-version="true" alt="GhodPool" class="profile">
+                </a>
+
+                <div id="profile-panel">
+                    <p><strong>ПІБ:</strong> Ковба Владислав Володимирович</p>
+                    <p><strong>Пошта:</strong> noipserverm@gmail.com</p>
+                    <form method="post" asp-action="Logout" asp-controller="Account">
+                        <button type="submit" id="logout">Вийти</button>
+                    </form>
+                    @* <button id="logout" onclick="window.location.href='/Home'">Вийти</button> *@ 
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    <footer class="footer">
+        <p>© 2025 GhodPool. Усі права захищені.</p>
+    </footer> 
+    <script src="/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+

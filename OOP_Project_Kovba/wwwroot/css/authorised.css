@@ -1,0 +1,39 @@
+.post-trip {
+    margin-right: 30px;
+    margin-top: 12px;
+}
+
+.planned-trips {
+    margin-right: 30px;
+    margin-top: 12px;
+}
+
+.logo, .site-name {
+    margin-bottom: 10px;
+}
+
+
+.nav-right {
+    display: flex;
+    gap: 15px;
+}
+
+    .nav-right a {
+        font-size: 22px;
+        font-weight: bold;
+        color: #ff7f00;
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+
+    .nav-right a:hover {
+        background-color: none; /* Помаранчевий фон при наведенні */
+        color: white;
+    }
+
+    .nav-right a:active {
+        background-color: none; /* Темніший помаранчевий фон при натисканні */
+        color: white;
+    }

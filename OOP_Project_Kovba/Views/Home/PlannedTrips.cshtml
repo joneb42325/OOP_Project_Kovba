@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "_Layout_Authorised";
+}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заплановані поїздки</title>
+    <link rel="stylesheet" href="~/css/planned-trips.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="results-container">
+            <h2>Заплановані поїздки</h2>
+
+            <div class="trip-card">
+                <div class="trip-info">
+                    <p><strong>📍 Київ → Львів</strong></p>
+                    <p>📅 Дата: 25 лютого 2025</p>
+                    <p>🧑‍✈️ Водій: Іван Петров Володимирович ⭐ 5.0</p>
+                    <p>⏰ Час виїзду: 08:00</p>
+                    <p>⏳ Час прибуття: 14:00</p>
+                    <p>💺 Місць залишилось: 3</p>
+                    <p>💰 400 грн</p>
+                </div>
+                @* <div class="trip-price">💰 400 грн</div> *@
+                <div class="trip-actions">
+                   
+                    <button class="delete-button">❌ Видалити</button>
+                    <button class="details-button" onclick="window.location.href='/Home/PlannedTripDetails'">Показати деталі</button>
+
+                    @*<button class="details-button" href="/Home/PlannedTripDetails">Показати деталі</button>*@
+
+                </div>
+            </div>
+
+            <div class="trip-card">
+                <div class="trip-info">
+                    <p><strong>📍 Київ → Житомир</strong></p>
+                    <p>📅 Дата: 5 березня 2025</p>
+                    <p>🧑‍✈️ Водій: Владислав Ковба (Ви) ⭐ 5.0</p>
+                    <p>⏰ Час виїзду: 10:00</p>
+                    <p>⏳ Час прибуття: 13:00</p>
+                    <p>💺 Місць залишилось: 4</p>
+                    <p>💰 300 грн</p>
+                </div>
+                @*  <div class="trip-price">💰 300 грн</div> *@ 
+
+                <div class="trip-actions"> 
+                    <button class="edit-button">✏️ Редагувати</button>
+                    <button class="delete-button">❌ Видалити</button>
+                    <button class="details-button">Показати деталі</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

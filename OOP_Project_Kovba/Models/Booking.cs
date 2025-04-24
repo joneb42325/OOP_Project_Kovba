@@ -20,6 +20,8 @@ namespace OOP_Project_Kovba.Models
         [Required]
         public Trip Trip { get; set; }
 
+        public string TripId { get; set; }
+
         [Range(1, int.MaxValue, ErrorMessage = "Має бути заброньовано принаймні одне місце")]
         public int SeatsBooked {
             get => _seatsBooked;
@@ -48,6 +50,7 @@ namespace OOP_Project_Kovba.Models
             }
         }
 
+        /*
         [Required]
         [MinLength(1, ErrorMessage = "Ідентифікатор поїздки не може бути порожнім")]
         public string TripId
@@ -60,16 +63,14 @@ namespace OOP_Project_Kovba.Models
                 _tripId = value;
             }
         }
-
+        */
         public bool IsCancelled
         {
             get => _isCancelled;
             set { _isCancelled = value; }
         }
 
-        public ICollection<Booking>? Bookings { get; set; }
-
-        private Booking() { }
+        public Booking() { }
 
         public Booking(int seatsBooked, string userId, ApplicationUser user, string tripId, Trip trip)
         {

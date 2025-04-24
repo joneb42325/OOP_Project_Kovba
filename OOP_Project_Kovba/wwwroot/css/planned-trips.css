@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    position: relative;
+    bottom: 0;
+    margin-top: auto;
+    text-align: center;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.results-container {
+    width: 100%;
+    max-width: 800px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transform: translateY(20px);
+}
+
+h2 {
+    color: #ff7f00;
+    margin-bottom: 20px;
+}
+
+.trip-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s; */
+    position: relative;
+}
+
+.trip-info {
+    text-align: left;
+}
+
+    .trip-info p {
+        margin: 8px 0;
+        font-size: 18px;
+        font-weight: normal;
+    }
+
+.trip-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff7f00;
+
+}
+
+/* Блок с кнопками */
+.trip-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.edit-button, .delete-button, .details-button{
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.edit-button {
+    background-color: #007bff; 
+    color: white;
+}
+
+.delete-button {
+    background-color: #c82333; 
+    color: white;
+}
+
+.details-button {
+    background-color: #0056b3;  
+    color: white;
+}
+
+.edit-button:hover {
+    background-color: #0073e6;
+}
+
+.delete-button:hover {
+    background-color: #bd2130;
+}
+
+.details-button:hover {
+    background-color: #004a99;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .results-container {
+        max-width: 90%;
+    }
+
+    .trip-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .trip-actions {
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .edit-button, .delete-button {
+        font-size: 16px;
+        padding: 10px 15px;
+    }
+}

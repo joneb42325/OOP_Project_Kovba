@@ -15,10 +15,53 @@ namespace OOP_Project_Kovba.Controllers
 
         public IActionResult Index()
         {
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                ViewData["Layout"] = "_Layout_Authorised";
+            }
+            else
+            {
+                ViewData["Layout"] = "_Layout";
+            }
             return View();
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult Post()
+        {
+            return View();
+        }
+
+        public IActionResult Result()
+        {
+            return View();
+        }
+
+        public IActionResult TripDetails()
+        {
+            return View();
+        }
+
+        public IActionResult PlannedTrips()
+        {
+            return View();
+        }
+
+        public IActionResult PlannedTripDetails()
         {
             return View();
         }

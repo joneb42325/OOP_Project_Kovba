@@ -1,8 +1,46 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "GhodPool";
 }
 
+@{
+    Layout = ViewData["Layout"] as string ?? "_Layout";
+}
+
+<div class="background">
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Дорога чекає тебе!</h1>
+    <h2>Знайди попутників швидко та легко!</h2>
 </div>
+    <div class="search-form">
+        <form action="/search" method="GET">
+            <input type="text" name="from" placeholder="Звідки" required>
+            <input type="text" name="to" placeholder="Куди" required>
+            <input type="date" name="date" required>
+            <select name="passengers">
+                <option value="1">1 пасажир</option>
+                <option value="2">2 пасажири</option>
+                <option value="3">3 пасажири</option>
+                <option value="4">4 пасажири</option>
+            </select>
+            <button type="submit">Знайти поїздку</button>
+        </form>
+    </div>
+</div>
+<div class="why-us">
+    <h2>Чому обирають GhodPool?</h2>
+    <div class="reasons">
+        <div class="reason">
+            <h3>Екологічність</h3>
+            <p>Подорожуючи з попутниками, ви зменшуєте викиди CO₂ та допомагаєте зберегти навколишнє середовище.</p>
+        </div>
+        <div class="reason">
+            <h3>Зручність</h3>
+            <p>Знаходьте попутників швидко і зручно, використовуючи наш сервіс через сайт чи мобільний додаток.</p>
+        </div>
+        <div class="reason">
+            <h3>Безпека</h3>
+            <p>Ми приділяємо велику увагу безпеці: кожен водій проходить перевірку, а пасажири можуть оцінити свої поїздки.</p>
+        </div>
+    </div>
+</div>
+

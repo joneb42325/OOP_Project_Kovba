@@ -1,22 +1,290 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  margin-bottom: 60px;
+    font-family: Arial, sans-serif;
+    color: #ff7f00; /* Помаранчевий колір */
 }
+
+.footer {
+    background-color: #fff;
+    color: #ff7f00;
+    text-align: center;
+    padding: 15px;
+    font-size: 16px;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+header {
+    background-color: #fff;
+    padding: 10px 20px; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 110px; 
+    overflow: hidden; /* Контент не роздвигає header */
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ff7f00; /* Помаранчевий колір*/
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 100px; /* Розмір логотипа */
+    margin-left: 150px;
+    padding: 0; 
+}
+
+
+
+.profile {
+    height: 60px; /* Розмір логотипа */
+    margin-right: 15px;
+    margin-top: -10px; /*-1*/
+    padding: 0;
+}
+
+.nav-right {
+    display: flex;
+    gap: 15px;
+}
+
+    .nav-right a {
+        font-size: 22px;
+        font-weight: bold;
+        color: #ff7f00;
+        text-decoration: none;
+        padding: 10px 15px; /*10 15*/
+        border-radius: 5px;
+        transition: background 0.3s;
+
+    }
+
+        .nav-right a:hover {
+            background-color: #ff7f00; /* Помаранчевий фон при наведенні */
+            color: white;
+
+        }
+
+        .nav-right a:has(img.profile):hover {
+            background: none;
+            color: inherit;
+            
+        }
+
+
+        .nav-right a:active {
+            background-color: #e76f00; /* Темніший помаранчевий фон при натисканні */
+            color: white; 
+        }
+
+
+
+.post-trip {
+    margin-right: 100px; 
+}
+
+.site-name {
+    font-size: 28px;
+    font-weight: bold;
+    color: #e76f00;
+    margin-left: 10px; /* Відступ від логотиу */
+    letter-spacing: 1px; /* Простір між буквами */
+}
+
+    .site-name:hover {
+        color: #c75a00;
+        transition: color 0.3s ease;
+    }
+
+.search-form {
+    width: 80%; 
+    max-width: 1500px; 
+    padding: 30px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 30px auto; /* Центруємо */
+}
+
+    .search-form form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+    .search-form input,
+    .search-form select {
+        flex: 1; /* Рівномірний розподіл */
+        padding: 15px;
+        font-size: 18px;
+        border: 2px solid #ff7f00;
+        border-radius: 8px;
+        width: calc(25% - 10px); /* Чотири колонки */
+    }
+
+    .search-form button {
+        width: 15%;     
+        padding: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        background: #ff7f00;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+        .search-form button:hover {
+            background: #e76f00;
+        }
+
+.text-center {
+    text-align: left; /* Выравнивание текста по левому краю */
+    margin: 30px 500px; /* Добавляем отступы, чтобы текст не прилипал к краям */
+    width: 80%; /* Чтобы текст был на той же ширине, что и форма */
+    max-width: 1500px; /* Ограничиваем максимальную ширину */
+}
+
+.background {
+    background: url('/img/road1.jpg') no-repeat bottom center;
+    background-size: 1800px;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px; /* Відступ від хедеру */
+    padding-bottom: 30px;
+}
+
+.why-us {
+    background-color: #f9f9f9;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+    .why-us h2 {
+        font-size: 40px; /*32*/
+        color: #ff7f00;
+        margin-bottom: 30px;
+    }
+
+.reasons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.reason {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    text-align: center;
+}
+
+    .reason h3 {
+        font-size: 29px;
+        color: #ff7f00;
+        margin-bottom: 10px;
+    }
+
+    .reason p {
+        font-size: 18px; /*16*/
+        color: #555;
+    }
+
+/* Позиционирование панели профиля */
+#profile-link {
+    position: relative;
+}
+
+#profile-panel {
+    position: absolute;
+    top: 120px; /*80*/
+    right: 15px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 300px; /*220*/
+    display: none;
+
+}
+
+#profile-link:hover #profile-panel {
+    display: block; /* Показываем панель при наведении на иконку */
+}
+
+#profile-panel p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+#logout {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background: #ff7f00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    margin-top: 15px;
+}
+
+    #logout:hover {
+        background: #e76f00;
+    }
+
+
+
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-right {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-form {
+        width: 100%;
+        padding: 20px;
+    }
+
+        .search-form input,
+        .search-form select,
+        .search-form button {
+            width: 100%;
+        }
+
+    .reasons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .reason {
+        width: 90%;
+    }
+}
+

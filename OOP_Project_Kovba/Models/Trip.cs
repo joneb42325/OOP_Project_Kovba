@@ -6,6 +6,7 @@ namespace OOP_Project_Kovba.Models
     public class Trip : AuditableEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
 
         private string _fromCity = string.Empty;
@@ -16,10 +17,11 @@ namespace OOP_Project_Kovba.Models
         private string _driverId = string.Empty;
         private int _maxPassengers;
         private decimal _price;
+        private string _comment;
         private DateTime _departureTime;
         private DateTime _arrivalDate;
         private bool _isCancelled = false;
-
+        
         [Required]
         [MinLength(2)]
         public string FromCity
@@ -154,14 +156,23 @@ namespace OOP_Project_Kovba.Models
             }
         }
 
+        public string Comment
+        {
+            get => _comment;
+            set
+            {
+                _comment = value;
+            }
+        }
+
         [Required]
         public ApplicationUser Driver { get; set; }
-
         public ICollection<ApplicationUser> Passengers { get; set; } = new List<ApplicationUser>();
+        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
         public static int MaxSeatsForTrip { get; } = 50;
         public static int MaxTripDurationInHours { get; } = 100;
 
-        private Trip() { }
+        public Trip() { }
 
         public Trip(
             string fromCity, string fromAddress, string toCity, string toAddress,

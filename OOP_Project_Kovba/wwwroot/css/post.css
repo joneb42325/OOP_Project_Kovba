@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+body {   
+    flex: 1; /* Контент будет занимать всё пространство */
+}
+
+.footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Контейнер для формы и инфоблока */
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    padding: 47px;
+    margin: -20px auto;
+}
+
+
+/* Левая часть - форма */
+.container {
+    flex: 1;
+    background: none;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    max-width: 500px;
+}
+
+/* Заголовок */
+h2 {
+    text-align: center;
+    color: #ff7f00;
+    margin-bottom: 20px;
+}
+
+/* Группы формы */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Поля ввода */
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border 0.3s ease-in-out;
+}
+
+    input:focus, select:focus {
+        border-color: #ff7f00;
+        outline: none;
+    }
+
+/* Кнопка */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff7f00;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+    button:hover {
+        background-color: #e76f00;
+    }
+
+/* Правая часть - инфоблок */
+.info-box {
+    width: 800px;
+    text-align: center;
+    background: none;
+    padding: 20px;
+    border-radius: 10px;
+    padding-top: 0px;
+  /*  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); */
+}
+
+.info-img {
+    width: 700px;
+    height: 650px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    object-fit: cover
+}
+
+.info-box h3 {
+    color: #ff7f00;
+    font-size: 27px;
+    margin-bottom: 10px;
+    text-wrap
+}
+
+.info-box p {
+    font-size: 25px;
+    color: #555;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .info-box {
+        width: 100%;
+        max-width: 500px;
+        margin-top: 20px;
+    }
+}
