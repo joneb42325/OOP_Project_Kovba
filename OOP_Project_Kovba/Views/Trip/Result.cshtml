@@ -1,0 +1,51 @@
+﻿@model OOP_Project_Kovba.ViewModels.SearchTripResultViewModel
+
+@{
+    ViewData["Title"] = "Знайдені поїздки";
+}
+
+@{
+    Layout = ViewData["Layout"] as string ?? "_Layout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Знайдені поїздки</title>
+    <link rel="stylesheet" href="~/css/result.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="results-container">
+            <h2>Знайдені поїздки</h2>
+            @if (Model.Trips.Any())
+            {
+            @foreach(var trip in Model.Trips)
+              {
+            <div class="trip-card" >
+                <div class="trip-info" onclick="window.location.href='/trip-details/@trip.Id'">
+                    <p><strong>@trip.FromCity → @trip.ToCity</strong></p>
+                    <p>📅 Дата: @trip.DepartureTime.ToString("dd.MM.yyyy")</p>
+                    <p>🧑‍✈️ Водій: @trip.DriverName</p>
+                    <p>⏰ Час виїзду: @trip.DepartureTime.ToString("HH:mm")</p>
+                    <p>⏳ Час прибуття: @trip.ArrivalTime.ToString("HH:mm")</p>
+                    <p>💺 Місць залишилось: @trip.MaxPassengers</p>
+                    <p>🚘 Авто: @trip.CarModel</p>
+                </div>
+                <div class="trip-price">@trip.Price грн</div>
+            </div>
+               }
+            }
+            else {
+                <p class="no-trips-message">Поїздок за вашим запитом не знайдено.</p>
+            }
+        </div>
+    </div>
+    <div class="button-container">
+        <a href="/" class="back-button">Повернутися на головну сторінку</a>
+    </div>
+</body>
+
+</html>

@@ -47,6 +47,13 @@ h2 {
     margin-bottom: 20px;
 }
 
+.no-trips-message {
+    font-size: 20px;
+    color: #666;
+    text-align: center;
+    margin-top: 20px;
+}
+
 .trip-card {
     display: flex;
     justify-content: space-between;
@@ -80,6 +87,29 @@ h2 {
     font-weight: bold;
     color: #ff7f00;
 }
+
+.button-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #ff7f00;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 22px;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+    .back-button:hover {
+        background-color: #e36c00;
+        transform: translateY(-2px);
+    }
+
 
 
 /* Для адаптивности */

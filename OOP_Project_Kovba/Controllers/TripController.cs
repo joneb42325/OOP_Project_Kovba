@@ -5,6 +5,7 @@ using OOP_Project_Kovba.ViewModels;
 using OOP_Project_Kovba.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 
 namespace MyMVC.Controllers
@@ -18,6 +19,12 @@ namespace MyMVC.Controllers
         {
             _tripRepository = tripRepository;
             _userManager = userManager;
+        }
+
+        public IActionResult Index()
+        {
+            
+            return View();
         }
 
         [Authorize]
@@ -54,6 +61,45 @@ namespace MyMVC.Controllers
             return RedirectToAction("Index", "Home");
           //  return RedirectToAction("PlannedTrips", "Trip");
         }
+
+        [HttpGet("/search")]
+        public async Task<IActionResult> SearchTrip(SearchTripViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            
+            var trips = await _tripRepository.GetTripsAsync(model.From, model.To, model.Date, model.Passengers);
+
+            var resultViewModel = new SearchTripResultViewModel
+            {
+                Trips = trips.Select(trip => new TripResultViewModel
+                {
+                    Id = trip.Id,
+                    FromCity = trip.FromCity,
+                    ToCity = trip.ToCity,
+                    DepartureTime = trip.DepartureTime,
+                    ArrivalTime = trip.ArrivalDate,
+                    DriverName = trip.Driver.FullName,
+                    CarModel = trip.CarModel,
+                    MaxPassengers = trip.MaxPassengers,
+                    Price = trip.Price
+                }).ToList()
+            };
+
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                ViewData["Layout"] = "_Layout_Authorised";
+            }
+            else
+            {
+                ViewData["Layout"] = "_Layout";
+            }
+
+            return View("Result", resultViewModel);
+        }
+        
 
         [Authorize]
         public IActionResult PlannedTrips()
