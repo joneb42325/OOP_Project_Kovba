@@ -88,15 +88,6 @@ namespace MyMVC.Controllers
                 }).ToList()
             };
 
-            if (User?.Identity?.IsAuthenticated ?? false)
-            {
-                ViewData["Layout"] = "_Layout_Authorised";
-            }
-            else
-            {
-                ViewData["Layout"] = "_Layout";
-            }
-
             return View("Result", resultViewModel);
         }
         

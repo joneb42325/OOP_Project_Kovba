@@ -1,3 +1,3 @@
 ﻿@{
-    Layout = "_Layout";
+    ViewData["Layout"] = (User?.Identity?.IsAuthenticated ?? false) ? "_Layout_Authorised" : "_Layout";
 }

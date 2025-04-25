@@ -15,14 +15,6 @@ namespace OOP_Project_Kovba.Controllers
 
         public IActionResult Index()
         {
-            if (User?.Identity?.IsAuthenticated ?? false)
-            {
-                ViewData["Layout"] = "_Layout_Authorised";
-            }
-            else
-            {
-                ViewData["Layout"] = "_Layout";
-            }
             return View();
         }
 
