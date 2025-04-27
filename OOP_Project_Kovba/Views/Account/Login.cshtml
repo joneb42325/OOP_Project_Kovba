@@ -2,6 +2,11 @@
 @{
     ViewData["Title"] = "Авторизація";
 }
+
+@{
+    Layout = ViewData["Layout"] as string ?? "_Layout";
+}
+
 <head>
     <link rel="stylesheet" href="~/css/login.css" />
 </head>

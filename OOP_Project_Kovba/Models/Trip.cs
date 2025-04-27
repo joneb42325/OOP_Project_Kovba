@@ -113,13 +113,13 @@ namespace OOP_Project_Kovba.Models
             }
         }
 
-        [Range(1, int.MaxValue, ErrorMessage = "Кількість пасажирів повинна бути більше 0")]
+        [Range(0, int.MaxValue, ErrorMessage = "Кількість пасажирів повинна бути більше 0")]
         public int MaxPassengers
         {
             get => _maxPassengers;
             set
             {
-                if (!IsValidSeats(value) || value == 0)
+                if (!IsValidSeats(value) || value < 0)
                     throw new ArgumentException("Кількість місць недопустима");
                 _maxPassengers = value;
             }

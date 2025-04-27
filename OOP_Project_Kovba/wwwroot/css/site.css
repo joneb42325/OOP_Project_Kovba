@@ -20,10 +20,15 @@ body {
 
 
 header {
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
     background-color: #fff;
     padding: 10px 20px; 
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    max-height: 110px; 
+    height: 110px; 
     overflow: hidden; /* Контент не роздвигає header */
 }
 
@@ -166,7 +171,7 @@ nav {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 30px; /* Відступ від хедеру */
+    margin-top: 140px; /* Відступ від хедеру */
     padding-bottom: 30px;
 }
 
@@ -214,7 +219,7 @@ nav {
 }
 
 #profile-panel {
-    position: absolute;
+    position: fixed;
     top: 120px; /*80*/
     right: 15px;
     background: white;

@@ -1,26 +1,4 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-/*
-document.addEventListener("DOMContentLoaded", function () {
-    const profileLink = document.getElementById("profile-link");
-    const profilePanel = document.getElementById("profile-panel");
-
-    if (profileLink && profilePanel) {
-        profileLink.addEventListener("click", function (event) {
-            event.preventDefault();
-            profilePanel.classList.toggle("hidden");
-        });
-
-        document.addEventListener("click", function (event) {
-            if (!profilePanel.contains(event.target) && !profileLink.contains(event.target)) {
-                profilePanel.classList.add("hidden");
-            }
-        });
-    }
-});
-*/
+﻿
 
     const profileLink = document.getElementById('profile-link');
     const profilePanel = document.getElementById('profile-panel');

@@ -29,6 +29,7 @@ html, body {
     justify-content: center;
     align-items: center;
     padding: 20px; /* Чуть отступов для мобильных */
+    margin-top:100px;
 }
 
 .results-container {
@@ -78,12 +79,12 @@ h2 {
 
     .trip-info p {
         margin: 5px 0;
-        font-size: 20px;
+        font-size: 24px;
         font-weight: normal;
     }
 
 .trip-price {
-    font-size: 18px;
+    font-size: 21px;
     font-weight: bold;
     color: #ff7f00;
 }

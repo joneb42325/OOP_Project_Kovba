@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using OOP_Project_Kovba.Models;
 
-namespace MyMVC.Data
+namespace OOP_Project_Kovba.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

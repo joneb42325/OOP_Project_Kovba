@@ -1,12 +1,12 @@
 ﻿using OOP_Project_Kovba.Models;
-namespace MyMVC.Data
+namespace OOP_Project_Kovba.Interfaces
 {
     public interface ITripRepository
     {
         Task AddTripAsync(Trip trip);
         Task <IEnumerable<Trip>> GetTripsAsync(string from, string to, DateTime date, int passengers);
-       // Task<List<BookedTrip>> GetBookedTripsAsync(string userId);
-       // Task<List<CreatedTrip>> GetCreatedTripsAsync(string userId);
+        public Task<Trip?> GetTripByIdAsync(string id);
+        public Task UpdateTripAsync(Trip trip);
+        public Task<IEnumerable<Trip>> GetAllDriverTrips(string userId);
     }
-
 }

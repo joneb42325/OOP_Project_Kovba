@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Server.Kestrel.Core.Features;
 using Microsoft.EntityFrameworkCore;
-using MyMVC.Controllers;
+using OOP_Project_Kovba.Interfaces;
 using OOP_Project_Kovba.Models;
 
-namespace MyMVC.Data
+namespace OOP_Project_Kovba.Data.Repositories
 {
     public class TripRepository : ITripRepository
     {
         private readonly ApplicationDbContext _context;
-     //   private AccountController _accountController;
 
         public TripRepository (ApplicationDbContext context)
         {
@@ -20,32 +19,42 @@ namespace MyMVC.Data
             _context.Trips.Add(trip);
             await _context.SaveChangesAsync();
         }
-        
+
+        public async Task UpdateTripAsync(Trip trip)
+        {
+            _context.Trips.Update(trip);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Trip>> GetTripsAsync(string from, string to, DateTime date, int passengers)
         {
            return await _context.Trips
            .Include(t => t.Driver)
-           .Where(t => t.FromCity == from
+           .Where(t => t.IsCancelled == false
+                 && t.FromCity == from
                  && t.ToCity == to
                  && t.DepartureTime.Date == date.Date
                  && t.MaxPassengers >= passengers
                  ) .ToListAsync();
         }
 
+        public async Task<IEnumerable<Trip>> GetAllDriverTrips(string userId)
+        {
+            return await _context.Trips
+            .Include(t => t.Driver)
+            .Where(t => t.DriverId == userId
+                    && t.IsCancelled == false)
+            .OrderBy(t => t.DepartureTime)
+            .ToListAsync();
+        }
 
-
-
-
-        //  public ApplicationUser? GetUsersTrips (int userId)
-
-
-        //  public bool AddUserTrip (CreatedTrip trip)
-
-
-        //  public ApplicationUser? GetTrips(string fromLocation, string toLocation, DateTime date, int passengersAmount)
-
-
-        //   public CreatedTrip? GetTripById(int id)
-
+        public async Task<Trip?> GetTripByIdAsync(string id)
+        {
+            return await _context.Trips
+            .Include(t => t.Bookings)
+            .Include(t => t.Driver)
+            .Where(t => t.IsCancelled == false)
+            .SingleOrDefaultAsync(t => t.Id == id);
+        }
     }
 }

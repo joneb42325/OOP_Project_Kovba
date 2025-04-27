@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MyMVC.Data;
+using OOP_Project_Kovba.Data;
 using OOP_Project_Kovba.Models;
+using OOP_Project_Kovba.Interfaces;
+using OOP_Project_Kovba.Data.Repositories;
+using OOP_Project_Kovba;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,8 +29,11 @@ builder.Services.ConfigureApplicationCookie(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Регистрируем репозиторий
 builder.Services.AddScoped<ITripRepository, TripRepository>();
+
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+
+builder.Services.AddScoped<ITripService, TripService>();
 
 var app = builder.Build();
 

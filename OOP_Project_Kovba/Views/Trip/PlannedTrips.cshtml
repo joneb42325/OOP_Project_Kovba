@@ -54,7 +54,12 @@
                     <button class="details-button">Показати деталі</button>
                 </div>
             </div>
-
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    <h2>@TempData["SuccessMessage"]</h2>
+                </div>
+            }
         </div>
     </div>
 </body>

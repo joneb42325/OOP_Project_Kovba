@@ -1,11 +1,12 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
-using MyMVC.Data;
+using OOP_Project_Kovba.Interfaces;
 using OOP_Project_Kovba.ViewModels;
 using OOP_Project_Kovba.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using OOP_Project_Kovba;
 
 
 namespace MyMVC.Controllers
@@ -14,16 +15,17 @@ namespace MyMVC.Controllers
     {
         private readonly ITripRepository _tripRepository;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ITripService _tripService;
 
-        public TripController(ITripRepository tripRepository, UserManager<ApplicationUser> userManager)
+        public TripController(ITripRepository tripRepository, UserManager<ApplicationUser> userManager, ITripService tripService)
         {
             _tripRepository = tripRepository;
             _userManager = userManager;
+            _tripService = tripService;
         }
 
         public IActionResult Index()
         {
-            
             return View();
         }
 
@@ -33,6 +35,7 @@ namespace MyMVC.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateTrip(CreateTripViewModel model)
         {
@@ -59,7 +62,6 @@ namespace MyMVC.Controllers
             };
             await _tripRepository.AddTripAsync(trip);
             return RedirectToAction("Index", "Home");
-          //  return RedirectToAction("PlannedTrips", "Trip");
         }
 
         [HttpGet("/search")]
@@ -69,7 +71,7 @@ namespace MyMVC.Controllers
             {
                 return View(model);
             }
-            
+
             var trips = await _tripRepository.GetTripsAsync(model.From, model.To, model.Date, model.Passengers);
 
             var resultViewModel = new SearchTripResultViewModel
@@ -91,31 +93,24 @@ namespace MyMVC.Controllers
             return View("Result", resultViewModel);
         }
         
+        [HttpGet("trip-details/{id}")]
+        public async Task<IActionResult> TripDetails(string id)
+        {
+            var viewModel = await _tripService.GetTripDetailsViewModelAsync(id);
+
+            if (viewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View("TripDetails", viewModel);
+        }
 
         [Authorize]
         public IActionResult PlannedTrips()
         {
             return View();
         }
-        /*
-        [HttpGet]
-        public async Task<IActionResult> GetUserTrips()
-        {
-            var userId = await _userManager.GetUserAsync(User);
-            if (userId == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            var bookedTrips = await _userManager.GetBookedTripsAsync(userId);
-            var createdTrips = await _userManager.GetCreatedTripsAsync(userId);
 
-            var model = new UserTripsViewModel
-            {
-                BookedTrips = bookedTrips,
-                CreatedTrips = createdTrips
-            };
-            return RedirectToAction("PlannedTrips", model);
-        }
-        */
     }
 }

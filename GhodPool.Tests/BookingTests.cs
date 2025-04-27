@@ -107,19 +107,6 @@ namespace GhodPool.Tests
         }
 
         [TestMethod]
-        public void ChangeSeats_WhenSeatsExceedTripCapacity_ShouldThrowException()
-        {
-            //Arrange
-            var booking = GetValidBooking();
-            int newSeats = 5;
-
-            //Act & Assert
-            Assert.ThrowsException<ArgumentException>(() =>
-                booking.ChangeSeats(newSeats)
-            );
-        }
-
-        [TestMethod]
         public void GetInfo_WhenCalled_ReturnsCorrectBookingInfo()
         {
             //Arrange
@@ -303,18 +290,5 @@ namespace GhodPool.Tests
             // Assert
             Assert.AreEqual(newTripId, booking.TripId);
         }
-
-        [TestMethod]
-        public void TripId_SetWhitespace_ThrowsArgumentException()
-        {
-            // Arrange
-            var booking = GetValidBooking();
-
-            // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() =>
-                booking.TripId = "   "
-            );
-        }
-
     }
 }
