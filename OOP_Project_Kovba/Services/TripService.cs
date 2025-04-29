@@ -37,10 +37,44 @@ namespace OOP_Project_Kovba
                 CarModel = trip.CarModel,
                 Comment = trip.Comment,
                 MaxPassengers = trip.MaxPassengers,
-                Price = trip.Price
+                Price = trip.Price,
+                Bookings = trip.Bookings,
             };
 
             return viewModel;
+        }
+
+        public async Task<(bool Success, string Message, TripDetailsViewModel? ViewModel)> TryCreateBookingAsync(string tripId, string userId, int seatsBooked)
+        {
+            var trip = await _tripRepository.GetTripByIdAsync(tripId);
+            if (trip == null)
+                return (false, "Поїздку не знайдено", null);
+
+            if (userId == trip.DriverId)
+                return (false, "Ви є водієм в цій поїздці.", await GetTripDetailsViewModelAsync(tripId));
+
+            if (!trip.HasAvailableSeats())
+                return (false, "В поїздці немає вільних місць!", await GetTripDetailsViewModelAsync(tripId));
+
+            if (Booking.IsUserAlreadyBooked(userId, tripId, trip.Bookings))
+                return (false, "Ви вже заброньовані в цій поїздці!", await GetTripDetailsViewModelAsync(tripId));
+
+            var booking = new Booking
+            {
+                TripId = tripId,
+                UserId = userId,
+                SeatsBooked = seatsBooked
+            };
+
+            await _bookingRepository.AddBookingAsync(booking);
+            trip.Bookings.Add(booking);
+            trip.ReduceAvailableSeats(seatsBooked); 
+
+            await _tripRepository.UpdateTripAsync(trip);
+
+            var updatedViewModel = await GetTripDetailsViewModelAsync(tripId);
+
+            return (true, "Бронювання успішно створено!", updatedViewModel);
         }
 
         public async Task<IEnumerable<TripResultViewModel>> GetDriversPlannedTripsAsync(string userId)

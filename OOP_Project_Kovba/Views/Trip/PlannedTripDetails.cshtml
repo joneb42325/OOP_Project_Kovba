@@ -34,6 +34,26 @@
             <p><strong>💬 Коментар:</strong> @Model.Comment</p>
             <p>💺 Місць залишилось: @Model.MaxPassengers</p>
             <p><strong>💰 Ціна:</strong> @Model.Price</p>
+
+            @if (Model.Bookings.Any())
+            {
+                <div class="bookings-container">
+                    <h3>📝 Бронювання пасажирів</h3>
+                    @foreach (var booking in Model.Bookings)
+                    {
+                        <div class="booking-card">
+                            <p>👤 Пасажир: @booking.User.FullName</p>
+                            <p>📧 Пошта: @booking.User.Email</p>
+                            <p>💺 Кількість місць: @booking.SeatsBooked</p>
+                            <p>📅 Дата бронювання: @booking.CreatedAt.ToString("dd.MM.yyyy HH:mm")</p>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="no-bookings-message">Поки що жодного бронювання.</p>
+            }
         </div>
     </main>
     <div class="button-container">

@@ -233,5 +233,13 @@ namespace OOP_Project_Kovba.Models
         {
             return ((arrivalTime - departureTime).TotalHours < MaxTripDurationInHours);     
         }
+
+        public void ReduceAvailableSeats(int seats)
+        {
+            if (seats > MaxPassengers)
+                throw new InvalidOperationException("Недостатньо вільних місць.");
+            MaxPassengers -= seats;
+        }
+
     }
 }

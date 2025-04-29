@@ -1,4 +1,5 @@
-﻿namespace OOP_Project_Kovba.ViewModels
+﻿using OOP_Project_Kovba.Models;
+namespace OOP_Project_Kovba.ViewModels
 {
     public class TripDetailsViewModel
     {
@@ -15,5 +16,7 @@
         public int MaxPassengers { get; set; }
         public string? Comment { get; set; }
         public decimal Price { get; set; }
+
+        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
     }
 }

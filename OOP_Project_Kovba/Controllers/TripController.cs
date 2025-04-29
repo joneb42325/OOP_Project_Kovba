@@ -139,6 +139,5 @@ namespace MyMVC.Controllers
 
             return View("PlannedTripDetails", viewModel);
         }
-
     }
 }

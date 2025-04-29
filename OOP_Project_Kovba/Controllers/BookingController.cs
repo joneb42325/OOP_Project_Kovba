@@ -26,52 +26,14 @@ namespace OOP_Project_Kovba.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateBooking(string tripId, int seatsBooked)
         {
-            var trip = await _tripRepository.GetTripByIdAsync(tripId);
-            if (trip == null)
-            {
-                return NotFound();
+                var userId = _userManager.GetUserId(User);
+                if (userId == null)
+                    return Unauthorized();
+
+                var result = await _tripService.TryCreateBookingAsync(tripId, userId, seatsBooked);
+
+                TempData["SuccessMessage"] = result.Message;
+                return View("~/Views/Trip/TripDetails.cshtml", result.ViewModel);
             }
-            var userId = _userManager.GetUserId(User);
-
-            if (userId == null)
-            {
-                return Unauthorized();
-            }
-
-            /* Comment for tests
-            if (userId == trip.DriverId)
-            {
-                TempData["SuccessMessage"] = "Помилка. Ви є водієм в цій поїздці.";
-                var viewModelAlready = await _tripService.GetTripDetailsViewModelAsync(tripId);
-                return View("~/Views/Trip/TripDetails.cshtml", viewModelAlready);
-            }
-            */
-            bool isAlreadyBooked = Booking.IsUserAlreadyBooked(userId, tripId, trip.Bookings);
-
-            if (isAlreadyBooked)
-            {
-                TempData["SuccessMessage"] = "Помилка. Ви вже заброньовані в цій поїздці!";
-                var viewModelAlready = await _tripService.GetTripDetailsViewModelAsync(tripId);
-                return View("~/Views/Trip/TripDetails.cshtml", viewModelAlready);
-            }
-
-            var booking = new Booking
-            {
-                TripId = tripId,
-                UserId = userId ?? throw new InvalidOperationException("User ID must not be null"),
-                SeatsBooked = seatsBooked,
-            };
-
-            await _bookingRepository.AddBookingAsync(booking);
-
-            trip.Bookings.Add(booking);
-            trip.MaxPassengers = trip.MaxPassengers - booking.SeatsBooked;
-            await _tripRepository.UpdateTripAsync(trip);
-
-            var updatedViewModel = await _tripService.GetTripDetailsViewModelAsync(tripId);
-
-            TempData["SuccessMessage"] = "Бронювання успішно створено!";
-            return View("~/Views/Trip/TripDetails.cshtml", updatedViewModel);
         }
     }
-}

@@ -52,6 +52,7 @@ namespace OOP_Project_Kovba.Data.Repositories
         {
             return await _context.Trips
             .Include(t => t.Bookings)
+                .ThenInclude(b => b.User)
             .Include(t => t.Driver)
             .Where(t => t.IsCancelled == false)
             .SingleOrDefaultAsync(t => t.Id == id);
