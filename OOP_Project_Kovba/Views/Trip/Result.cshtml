@@ -27,7 +27,14 @@
             <div class="trip-card" >
                 <div class="trip-info" onclick="window.location.href='/trip-details/@trip.Id'">
                     <p><strong>@trip.FromCity → @trip.ToCity</strong></p>
-                    <p>📅 Дата: @trip.DepartureTime.ToString("dd.MM.yyyy")</p>
+                     @if (trip.DepartureTime.Date == trip.ArrivalTime.Date)
+                     {
+                         <p><strong>📅 Дата:</strong> @trip.DepartureTime.ToString("dd.MM.yyyy")</p>
+                     }
+                     else
+                     {
+                       <p><strong>📅 Дати:</strong> @trip.DepartureTime.ToString("dd.MM.yyyy") → @trip.ArrivalTime.ToString("dd.MM.yyyy")</p>
+                     }
                     <p>🧑‍✈️ Водій: @trip.DriverName</p>
                     <p>⏰ Час виїзду: @trip.DepartureTime.ToString("HH:mm")</p>
                     <p>⏳ Час прибуття: @trip.ArrivalTime.ToString("HH:mm")</p>

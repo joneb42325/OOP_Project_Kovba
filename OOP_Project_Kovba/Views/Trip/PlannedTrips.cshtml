@@ -1,4 +1,5 @@
-﻿@{
+﻿@model OOP_Project_Kovba.ViewModels.PlannedTripsViewModel
+@{
     Layout = "_Layout_Authorised";
 }
 
@@ -13,52 +14,81 @@
 <body>
     <div class="main-container">
         <div class="results-container">
-            <h2>Заплановані поїздки</h2>
-
-            <div class="trip-card">
-                <div class="trip-info">
-                    <p><strong>📍 Київ → Львів</strong></p>
-                    <p>📅 Дата: 25 лютого 2025</p>
-                    <p>🧑‍✈️ Водій: Іван Петров Володимирович ⭐ 5.0</p>
-                    <p>⏰ Час виїзду: 08:00</p>
-                    <p>⏳ Час прибуття: 14:00</p>
-                    <p>💺 Місць залишилось: 3</p>
-                    <p>💰 400 грн</p>
-                </div>
-                @* <div class="trip-price">💰 400 грн</div> *@
-                <div class="trip-actions">
-                   
-                    <button class="delete-button">❌ Видалити</button>
-                    <button class="details-button" onclick="window.location.href='/Home/PlannedTripDetails'">Показати деталі</button>
-
-                    @*<button class="details-button" href="/Home/PlannedTripDetails">Показати деталі</button>*@
-
-                </div>
-            </div>
-
-            <div class="trip-card">
-                <div class="trip-info">
-                    <p><strong>📍 Київ → Житомир</strong></p>
-                    <p>📅 Дата: 5 березня 2025</p>
-                    <p>🧑‍✈️ Водій: Владислав Ковба (Ви) ⭐ 5.0</p>
-                    <p>⏰ Час виїзду: 10:00</p>
-                    <p>⏳ Час прибуття: 13:00</p>
-                    <p>💺 Місць залишилось: 4</p>
-                    <p>💰 300 грн</p>
-                </div>
-                @*  <div class="trip-price">💰 300 грн</div> *@ 
-
-                <div class="trip-actions"> 
-                    <button class="edit-button">✏️ Редагувати</button>
-                    <button class="delete-button">❌ Видалити</button>
-                    <button class="details-button">Показати деталі</button>
-                </div>
-            </div>
-            @if (TempData["SuccessMessage"] != null)
+            <h2>Ваші заплановані поїздки як водій</h2>
+            @if (Model.DriverTrips.Any())
             {
-                <div class="alert alert-success">
-                    <h2>@TempData["SuccessMessage"]</h2>
-                </div>
+                @foreach (var trip in Model.DriverTrips)
+                {
+                    <div class="trip-card">
+                        <div class="trip-info">
+                            <p><strong>📍 @trip.FromCity → @trip.ToCity</strong></p>
+                            @if (trip.DepartureTime.Date == trip.ArrivalTime.Date)
+                            {
+                                <p><strong>📅 Дата:</strong> @trip.DepartureTime.ToString("dd.MM.yyyy")</p>
+                            }
+                            else
+                            {
+                                <p><strong>📅 Дати:</strong> @trip.DepartureTime.ToString("dd.MM.yyyy") → @trip.ArrivalTime.ToString("dd.MM.yyyy")</p>
+                            }
+                            <p>🧑‍✈️ Водій: @trip.DriverName</p>
+                            <p>⏰ Час виїзду: @trip.DepartureTime.ToString("HH:mm")</p>
+                            <p>⏳ Час прибуття: @trip.ArrivalTime.ToString("HH:mm")</p>
+                            <p>💺 Місць залишилось: @trip.MaxPassengers</p>
+                            <p>🚘 Авто: @trip.CarModel</p>
+                            <p>💰 @trip.Price грн</p>
+                        </div>
+                        <div class="trip-actions">
+
+                            @*<button class="edit-button">✏️ Редагувати</button>*@
+                            <button class="delete-button">❌ Видалити</button>
+                            <button class="details-button" onclick="window.location.href='/planned-trip-details/@trip.Id'">Показати деталі</button>        
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="no-trips-message">Поїздок за вашим запитом не знайдено.</p>
+            }
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="results-container">
+            <h2>Ваші бронювання як пасажир</h2>
+            @if (Model.PassengerBookings.Any())
+            {
+                @foreach (var booking in Model.PassengerBookings)
+            {
+                    <div class="trip-card">
+                        <div class="trip-info">
+                            <p><strong>📍 @booking.FromCity → @booking.ToCity</strong></p>
+                            @if (booking.DepartureTime.Date == booking.ArrivalTime.Date)
+                            {
+                                <p><strong> Дата:</strong> @booking.DepartureTime.ToString("dd.MM.yyyy")</p>
+                            }
+                            else
+                            {
+                                <p><strong> Дати:</strong> @booking.DepartureTime.ToString("dd.MM.yyyy") → @booking.ArrivalTime.ToString("dd.MM.yyyy")</p>
+                            }
+                            <p>🧑‍✈️ Водій: @booking.DriverName</p>
+                            <p>⏰ Час виїзду: @booking.DepartureTime.ToString("HH:mm")</p>
+                            <p>⏳ Час прибуття: @booking.ArrivalTime.ToString("HH:mm")</p>
+                            <p>💺 Місць залишилось: @booking.MaxPassengers</p>
+                            <p>🚘 Авто: @booking.CarModel</p>
+                            <p>💰 @booking.Price грн</p>
+                        </div>
+                        <div class="trip-actions">
+
+                            <button class="delete-button">❌ Видалити</button>
+                            <button class="details-button" onclick="window.location.href='/planned-trip-details/@booking.Id'">Показати деталі</button>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="no-trips-message">Бронювань за вашим запитом не знайдено.</p>
             }
         </div>
     </div>

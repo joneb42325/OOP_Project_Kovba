@@ -20,6 +20,8 @@ namespace OOP_Project_Kovba.Data.Repositories
         public async Task<IEnumerable<Booking>> GetAllUsersBookings(string userId)
         {
             return await _context.Bookings
+            .Include(t => t.Trip)
+            .Include(t => t.Trip.Driver)
             .Include(t => t.User)
             .Where(t => t.UserId == userId
                     && t.IsCancelled == false)

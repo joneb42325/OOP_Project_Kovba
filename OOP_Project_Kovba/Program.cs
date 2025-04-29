@@ -8,6 +8,11 @@ using OOP_Project_Kovba;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Configure(builder.Configuration.GetSection("Kestrel"));
+});
+
 // Подключение к MySQL
 var connectionString = builder.Configuration.GetConnectionString("MyGhodPoolDb");
 

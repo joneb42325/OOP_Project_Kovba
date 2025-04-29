@@ -18,7 +18,14 @@
             <p><strong>📍 Маршрут:</strong> @Model.FromCity → @Model.ToCity</p>
             <p><strong>📍 Відправлення:</strong> @Model.FromStreetAndHouse</p>
             <p><strong>📍 Прибуття:</strong> @Model.ToStreetAndHouse</p>
-            <p><strong>📅 Дата:</strong> @Model.DepartureTime.ToString("dd.MM.yyyy")</p>
+            @if (Model.DepartureTime.Date == Model.ArrivalTime.Date)
+            {
+                <p><strong>📅 Дата:</strong> @Model.DepartureTime.ToString("dd.MM.yyyy")</p>
+            }
+            else
+            {
+                <p><strong>📅 Дати:</strong> @Model.DepartureTime.ToString("dd.MM.yyyy") → @Model.ArrivalTime.ToString("dd.MM.yyyy")</p>
+            }
             <p><strong>🧑‍✈️ Водій:</strong> @Model.DriverName</p>
             <p><strong>🧑‍✈️ Пошта водія:</strong> @Model.DriverEmail</p>
             <p><strong>⏰ Час виїзду:</strong> @Model.DepartureTime.ToString("HH:mm")</p>

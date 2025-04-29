@@ -1,6 +1,8 @@
-﻿@{
-    Layout = "_Layout_Authorised";
+﻿@model OOP_Project_Kovba.ViewModels.TripDetailsViewModel
+@{
+    Layout = ViewData["Layout"] as string ?? "_Layout";
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,19 +15,29 @@
     <main class="trip-container">
         <div class="trip-details">
             <h2>Деталі поїздки</h2>
-            @* <p><strong>📍 Маршрут:</strong> Київ → Львів</p> *@
-            <p><strong>📍 Відправлення:</strong> Київ, вул. Хрещатик, 1</p>
-            <p><strong>📍 Прибуття:</strong> Львів, просп. Свободи, 10</p>
-            <p><strong>📅 Дата:</strong> 25 лютого 2025</p>
-            <p><strong>🧑‍✈️ Водій:</strong> Іван Петров ⭐ 5.0</p>
-            <p><strong>🧑‍✈️ Пошта водія:</strong> noipserverm@gmail.com</p>
-            <p><strong>⏰ Час виїзду:</strong> 08:00</p>
-            <p><strong>⏳ Час прибуття:</strong> 14:00</p>
-            <p><strong>🚘 Автомобіль:</strong> Toyota Camry (чорний, 2019)</p>
-            @* <p><strong>🔌 Зручності:</strong> USB, Wi-Fi, кондиціонер</p> *@ 
-            <p><strong>💬 Коментар:</strong> "Робимо коротку зупинку у Житомирі"</p>
-            <p><strong>💰 Ціна:</strong> 400 грн</p>
+            <p><strong>📍 Маршрут:</strong> @Model.FromCity → @Model.ToCity</p>
+            <p><strong>📍 Відправлення:</strong> @Model.FromStreetAndHouse</p>
+            <p><strong>📍 Прибуття:</strong> @Model.ToStreetAndHouse</p>
+            @if (Model.DepartureTime.Date == Model.ArrivalTime.Date)
+            {
+                <p><strong>📅 Дата:</strong> @Model.DepartureTime.ToString("dd.MM.yyyy")</p>
+            }
+            else
+            {
+                <p><strong>📅 Дати:</strong> @Model.DepartureTime.ToString("dd.MM.yyyy") → @Model.ArrivalTime.ToString("dd.MM.yyyy")</p>
+            }
+            <p><strong>🧑‍✈️ Водій:</strong> @Model.DriverName</p>
+            <p><strong>🧑‍✈️ Пошта водія:</strong> @Model.DriverEmail</p>
+            <p><strong>⏰ Час виїзду:</strong> @Model.DepartureTime.ToString("HH:mm")</p>
+            <p><strong>⏳ Час прибуття:</strong> @Model.ArrivalTime.ToString("HH:mm")</p>
+            <p><strong>🚘 Автомобіль:</strong> @Model.CarModel</p>
+            <p><strong>💬 Коментар:</strong> @Model.Comment</p>
+            <p>💺 Місць залишилось: @Model.MaxPassengers</p>
+            <p><strong>💰 Ціна:</strong> @Model.Price</p>
         </div>
     </main>
+    <div class="button-container">
+        <a href="/Trip/PlannedTrips" class="back-button">Повернутися назад</a>
+    </div>
 </body>
 </html>

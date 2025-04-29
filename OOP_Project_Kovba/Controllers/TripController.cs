@@ -74,20 +74,23 @@ namespace MyMVC.Controllers
 
             var trips = await _tripRepository.GetTripsAsync(model.From, model.To, model.Date, model.Passengers);
 
+            var searchTrips = trips.Select(trip => new TripResultViewModel
+            {
+                Id = trip.Id,
+                FromCity = trip.FromCity,
+                ToCity = trip.ToCity,
+                DepartureTime = trip.DepartureTime,
+                ArrivalTime = trip.ArrivalDate,
+                DriverName = trip.Driver.FullName,
+                CarModel = trip.CarModel,
+                MaxPassengers = trip.MaxPassengers,
+                Price = trip.Price
+            }).ToList();
+
+
             var resultViewModel = new SearchTripResultViewModel
             {
-                Trips = trips.Select(trip => new TripResultViewModel
-                {
-                    Id = trip.Id,
-                    FromCity = trip.FromCity,
-                    ToCity = trip.ToCity,
-                    DepartureTime = trip.DepartureTime,
-                    ArrivalTime = trip.ArrivalDate,
-                    DriverName = trip.Driver.FullName,
-                    CarModel = trip.CarModel,
-                    MaxPassengers = trip.MaxPassengers,
-                    Price = trip.Price
-                }).ToList()
+                Trips = searchTrips
             };
 
             return View("Result", resultViewModel);
@@ -106,10 +109,35 @@ namespace MyMVC.Controllers
             return View("TripDetails", viewModel);
         }
 
+        
         [Authorize]
-        public IActionResult PlannedTrips()
+        [HttpGet]
+        public async Task<IActionResult> PlannedTrips()
         {
-            return View();
+            var userId = _userManager.GetUserId(User);
+            var driverTrips = await _tripService.GetDriversPlannedTripsAsync(userId);
+            var passengerBookings = await _tripService.GetPassengerBookingsAsync(userId);
+
+            var plannedTripsViewModel = new PlannedTripsViewModel
+            {
+                DriverTrips = driverTrips,
+                PassengerBookings = passengerBookings
+            };
+
+            return View(plannedTripsViewModel);
+        }
+
+        [HttpGet("planned-trip-details/{id}")]
+        public async Task<IActionResult> PlannedTripDetails(string id)
+        {
+            var viewModel = await _tripService.GetTripDetailsViewModelAsync(id);
+
+            if (viewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View("PlannedTripDetails", viewModel);
         }
 
     }

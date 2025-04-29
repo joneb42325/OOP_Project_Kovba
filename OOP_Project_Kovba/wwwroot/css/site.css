@@ -272,6 +272,10 @@ nav {
         gap: 10px;
     }
 
+    .logo {
+        margin-left: 0px  ;
+    }
+
     .search-form {
         width: 100%;
         padding: 20px;
@@ -281,6 +285,7 @@ nav {
         .search-form select,
         .search-form button {
             width: 100%;
+
         }
 
     .reasons {
