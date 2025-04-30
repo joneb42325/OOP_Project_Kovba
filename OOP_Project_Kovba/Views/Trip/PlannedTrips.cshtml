@@ -1,4 +1,9 @@
 ﻿@model OOP_Project_Kovba.ViewModels.PlannedTripsViewModel
+
+@{
+    ViewData["Title"] = "Заплановані поїздки";
+}
+
 @{
     Layout = "_Layout_Authorised";
 }
@@ -8,7 +13,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Заплановані поїздки</title>
     <link rel="stylesheet" href="~/css/planned-trips.css">
 </head>
 <body>
@@ -40,12 +44,20 @@
                         <div class="trip-actions">
 
                             @*<button class="edit-button">✏️ Редагувати</button>*@
-                            <button class="delete-button">❌ Видалити</button>
+                            <form method="post" asp-action="CancelTrip" asp-controller="Trip">
+                                <input type="hidden" name="TripId" value="@trip.Id" />
+                                <button type="submit" class="delete-button">❌ Видалити</button>
+                            </form>
                             <button class="details-button" onclick="window.location.href='/planned-trip-details/@trip.Id'">Показати деталі</button>        
                         </div>
                     </div>
                 }
-                /**/
+                @if (TempData["TripMessage"] != null)
+                {
+                    <div class="alert alert-success">
+                        <h2>@TempData["TripMessage"]</h2>
+                    </div>
+                }
             }
             else
             {
@@ -60,7 +72,7 @@
             @if (Model.PassengerBookings.Any())
             {
                 @foreach (var booking in Model.PassengerBookings)
-            {
+                {
                     <div class="trip-card">
                         <div class="trip-info">
                             <p><strong>📍 @booking.FromCity → @booking.ToCity</strong></p>
@@ -81,11 +93,21 @@
                         </div>
                         <div class="trip-actions">
 
-                            <button class="delete-button">❌ Видалити</button>
-                            <button class="details-button" onclick="window.location.href='/planned-trip-details/@booking.Id'">Показати деталі</button>
+                            <form method="post" asp-action="CancelBooking" asp-controller="Booking">
+                                <input type="hidden" name="BookingId" value="@booking.BookingId" />
+                                <button type="submit" class="delete-button">❌ Видалити</button>
+                            </form>
+                            <button class="details-button" onclick="window.location.href='/planned-trip-details/@booking.TripId'">Показати деталі</button>
                         </div>
                     </div>
                 }
+            
+            @if (TempData["BookingMessage"] != null)
+              {
+                <div class="alert alert-success">
+                    <h2>@TempData["BookingMessage"]</h2>
+                </div>
+              }
             }
             else
             {

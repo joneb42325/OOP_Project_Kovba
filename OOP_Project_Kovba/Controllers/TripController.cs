@@ -15,12 +15,14 @@ namespace MyMVC.Controllers
     public class TripController : BaseController
     {
         private readonly ITripRepository _tripRepository;
+        private readonly IBookingRepository _bookingRepository;
       // private readonly UserManager<ApplicationUser> _userManager;
         private readonly ITripService _tripService;
 
-        public TripController(ITripRepository tripRepository, UserManager<ApplicationUser> userManager, ITripService tripService) : base(userManager)
+        public TripController(ITripRepository tripRepository, IBookingRepository bookingRepository, UserManager<ApplicationUser> userManager, ITripService tripService) : base(userManager)
         {
             _tripRepository = tripRepository;
+            _bookingRepository = bookingRepository;
          //   _userManager = userManager;
             _tripService = tripService;
         }
@@ -139,6 +141,30 @@ namespace MyMVC.Controllers
             }
 
             return View("PlannedTripDetails", viewModel);
+        }
+
+        public async Task<IActionResult> CancelTrip(string tripId)
+        {
+            var trip = await _tripRepository.GetTripByIdAsync(tripId);
+
+            if (trip == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                trip.CancelTrip();
+            }
+            catch (InvalidOperationException ex)
+            {
+                TempData["TripMessage"] = ex.Message;
+                return RedirectToAction("PlannedTrips");
+            }
+            
+            await _bookingRepository.DeleteBookingsByTripIdAsync(tripId);
+            await _tripRepository.UpdateTripAsync(trip);
+            TempData["TripMessage"] = "Поїздку успішно видалено.";
+            return RedirectToAction("PlannedTrips");
         }
     }
 }

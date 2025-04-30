@@ -97,13 +97,14 @@ namespace OOP_Project_Kovba
             return driverTrips;
         }
 
-        public async Task<IEnumerable<TripResultViewModel>> GetPassengerBookingsAsync(string userId)
+        public async Task<IEnumerable<BookingResultViewModel>> GetPassengerBookingsAsync(string userId)
         {
             var bookings = await _bookingRepository.GetAllUsersBookings(userId);
 
-            var passengerBookings = bookings.Select(booking => new TripResultViewModel
+            var passengerBookings = bookings.Select(booking => new BookingResultViewModel
             {
-                Id = booking.Trip.Id,
+                BookingId = booking.Id,
+                TripId = booking.Trip.Id,
                 FromCity = booking.Trip.FromCity,
                 ToCity = booking.Trip.ToCity,
                 DepartureTime = booking.Trip.DepartureTime,
@@ -111,7 +112,7 @@ namespace OOP_Project_Kovba
                 DriverName = booking.Trip.Driver.FullName,
                 CarModel = booking.Trip.CarModel,
                 MaxPassengers = booking.Trip.MaxPassengers,
-                Price = booking.Trip.Price
+                Price = booking.Trip.Price,
             }).ToList();
 
             return passengerBookings;

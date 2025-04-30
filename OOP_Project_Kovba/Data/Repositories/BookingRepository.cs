@@ -17,6 +17,12 @@ namespace OOP_Project_Kovba.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task UpdateBookingAsync(Booking booking)
+        {
+            _context.Bookings.Update(booking);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Booking>> GetAllUsersBookings(string userId)
         {
             return await _context.Bookings
@@ -29,5 +35,20 @@ namespace OOP_Project_Kovba.Data.Repositories
             .ToListAsync();
         }
 
+        public async Task DeleteBookingsByTripIdAsync(string tripId)
+        {
+            var bookingsToDelete = _context.Bookings.Where(b => b.TripId == tripId);
+            _context.Bookings.RemoveRange(bookingsToDelete);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Booking?> GetBookingByIdAsync(string bookingId)
+        {
+            return await _context.Bookings
+            .Include(t => t.Trip)
+            .Include(t => t.User)
+            .Where(t => t.IsCancelled == false)
+            .SingleOrDefaultAsync(t => t.Id == bookingId);
+        }
     }
 }

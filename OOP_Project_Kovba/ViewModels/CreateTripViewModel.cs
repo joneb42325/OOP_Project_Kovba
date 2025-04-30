@@ -2,7 +2,7 @@
 
 namespace OOP_Project_Kovba.ViewModels
 {
-    public class CreateTripViewModel
+    public class CreateTripViewModel 
     {
 
         [Required(ErrorMessage = "Вкажіть місто відправлення.")]
@@ -10,9 +10,6 @@ namespace OOP_Project_Kovba.ViewModels
         public string FromCity { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Вкажіть вулицю і номер будинку.")]
-       // [RegularExpression(@"^[a-zA-Z0-9\s,]+$", ErrorMessage = "Вулиця і номер будинку відправлення мають бути через кому.")]
-        //[RegularExpression(@"^[a-zA-Zа-яА-ЯїЇєЄіІґҐ0-9\s,]+$", ErrorMessage = "Вулиця і номер будинку мають бути через кому.")]
-       // [RegularExpression(@"^[a-zA-Zа-яА-ЯїЇєЄіІґҐ0-9\s]+,\s*[a-zA-Zа-яА-ЯїЇєЄіІґҐ0-9]+$",ErrorMessage = "Вулиця і номер будинку мають бути у форматі: Назва вулиці, номер будинку.")]
         public string FromStreetAndHouse { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Вкажіть місто прибуття.")]
@@ -35,6 +32,7 @@ namespace OOP_Project_Kovba.ViewModels
         public int MaxPassengers { get; set; }
 
         [Required(ErrorMessage = "Вкажіть модель авто.")]
+        [StringLength(15, MinimumLength = 2, ErrorMessage = "Модель авто має бути від 2 до 15 символів.")]
         public string CarModel { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Вкажіть ціну.")]

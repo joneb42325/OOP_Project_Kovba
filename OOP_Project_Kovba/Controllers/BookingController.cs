@@ -18,7 +18,7 @@ namespace OOP_Project_Kovba.Controllers
         {
             _bookingRepository = bookingRepository;
             _tripRepository = tripRepository;
-           // _userManager = userManager;
+            // _userManager = userManager;
             _tripService = tripService;
         }
 
@@ -26,14 +26,37 @@ namespace OOP_Project_Kovba.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateBooking(string tripId, int seatsBooked)
         {
-                var userId = _userManager.GetUserId(User);
-                if (userId == null)
-                    return Unauthorized();
+            var userId = _userManager.GetUserId(User);
+            if (userId == null)
+                return Unauthorized();
 
-                var result = await _tripService.TryCreateBookingAsync(tripId, userId, seatsBooked);
+            var result = await _tripService.TryCreateBookingAsync(tripId, userId, seatsBooked);
 
-                TempData["SuccessMessage"] = result.Message;
-                return View("~/Views/Trip/TripDetails.cshtml", result.ViewModel);
+            TempData["SuccessMessage"] = result.Message;
+            return View("~/Views/Trip/TripDetails.cshtml", result.ViewModel);
+        }
+
+        public async Task<IActionResult> CancelBooking(string bookingId)
+        {
+            var booking = await _bookingRepository.GetBookingByIdAsync(bookingId);
+
+            if (booking == null)
+            {
+                return NotFound();
             }
+            try
+            {
+                booking.CancelBooking();
+            }
+            catch (InvalidOperationException ex)
+            {
+                TempData["BookingMessage"] = ex.Message;
+                return RedirectToAction("PlannedTrips", "Trip");
+            }
+            booking.Trip.MaxPassengers += booking.SeatsBooked;
+            await _bookingRepository.UpdateBookingAsync(booking);
+            TempData["BookingMessage"] = "Бронювання успішно видалено.";
+            return RedirectToAction("PlannedTrips", "Trip");
         }
     }
+}

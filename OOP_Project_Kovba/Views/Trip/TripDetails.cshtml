@@ -1,4 +1,9 @@
 ﻿@model OOP_Project_Kovba.ViewModels.TripDetailsViewModel
+
+@{
+    ViewData["Title"] = "Деталі поїздки";
+}
+
 @{
     Layout = ViewData["Layout"] as string ?? "_Layout";
 }
@@ -8,7 +13,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Деталі поїздки</title>
     <link rel="stylesheet" href="~/css/trip-details.css">
 </head>
 <body>
@@ -50,7 +54,6 @@
                         <h2>@TempData["SuccessMessage"]</h2>
                     </div>
                 }
-
             </form>
         </div>
     </main>    

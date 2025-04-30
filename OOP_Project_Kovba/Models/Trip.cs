@@ -214,8 +214,9 @@ namespace OOP_Project_Kovba.Models
 
         public void CancelTrip()
         {
-            if ((DepartureTime - DateTime.UtcNow).TotalHours < 24)
-                throw new InvalidOperationException("Trip cannot be canceled less than 24 hours before departure.");
+            var hoursToDeparture = (DepartureTime - DateTime.Now).TotalHours;
+            if (hoursToDeparture < 24 && Bookings.Any())
+                throw new InvalidOperationException("Неможливо скасувати поїздку менше ніж за 24 години до відправлення, оскільки є бронювання.");
             IsCancelled = true;
         }
 

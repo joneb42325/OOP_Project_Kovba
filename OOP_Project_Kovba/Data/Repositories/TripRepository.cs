@@ -35,6 +35,7 @@ namespace OOP_Project_Kovba.Data.Repositories
                  && t.ToCity == to
                  && t.DepartureTime.Date == date.Date
                  && t.MaxPassengers >= passengers
+                 && t.IsCancelled == false
                  ) .ToListAsync();
         }
 
@@ -51,11 +52,12 @@ namespace OOP_Project_Kovba.Data.Repositories
         public async Task<Trip?> GetTripByIdAsync(string id)
         {
             return await _context.Trips
-            .Include(t => t.Bookings)
+            .Include(t => t.Bookings.Where(b => b.IsCancelled == false))
                 .ThenInclude(b => b.User)
             .Include(t => t.Driver)
             .Where(t => t.IsCancelled == false)
             .SingleOrDefaultAsync(t => t.Id == id);
         }
+
     }
 }
