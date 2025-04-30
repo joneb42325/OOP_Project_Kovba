@@ -7,18 +7,18 @@ using OOP_Project_Kovba.Models;
 
 namespace OOP_Project_Kovba.Controllers
 {
-    public class BookingController : Controller
+    public class BookingController : BaseController
     {
         private readonly IBookingRepository _bookingRepository;
         private readonly ITripRepository _tripRepository;
-        private readonly UserManager<ApplicationUser> _userManager;
+        //private readonly UserManager<ApplicationUser> _userManager;
         private readonly ITripService _tripService;
 
-        public BookingController(IBookingRepository bookingRepository, ITripRepository tripRepository, UserManager<ApplicationUser> userManager, ITripService tripService)
+        public BookingController(IBookingRepository bookingRepository, ITripRepository tripRepository, UserManager<ApplicationUser> userManager, ITripService tripService) : base(userManager)
         {
             _bookingRepository = bookingRepository;
             _tripRepository = tripRepository;
-            _userManager = userManager;
+           // _userManager = userManager;
             _tripService = tripService;
         }
 

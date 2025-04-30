@@ -10,6 +10,6 @@ namespace OOP_Project_Kovba.Interfaces
 
         public Task<IEnumerable<TripResultViewModel>> GetPassengerBookingsAsync(string userId);
 
-        public Task<(bool Success, string Message, TripDetailsViewModel? ViewModel)> TryCreateBookingAsync(string tripId, string userId, int seatsBooked)
+        public Task<(bool Success, string Message, TripDetailsViewModel? ViewModel)> TryCreateBookingAsync(string tripId, string userId, int seatsBooked);
     }
 }

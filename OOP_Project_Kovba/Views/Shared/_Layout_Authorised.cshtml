@@ -24,8 +24,8 @@
                 </a>
 
                 <div id="profile-panel">
-                    <p><strong>ПІБ:</strong> Ковба Владислав Володимирович</p>
-                    <p><strong>Пошта:</strong> noipserverm@gmail.com</p>
+                    <p><strong>ПІБ:</strong> @ViewData["UserFullName"]</p>
+                    <p><strong>Пошта:</strong> @ViewData["UserEmail"]</p>
                     <form method="post" asp-action="Logout" asp-controller="Account">
                         <button type="submit" id="logout">Вийти</button>
                     </form>

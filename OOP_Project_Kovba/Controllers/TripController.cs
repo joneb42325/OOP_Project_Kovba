@@ -7,20 +7,21 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using OOP_Project_Kovba;
+using OOP_Project_Kovba.Controllers;
 
 
 namespace MyMVC.Controllers
 {
-    public class TripController : Controller
+    public class TripController : BaseController
     {
         private readonly ITripRepository _tripRepository;
-        private readonly UserManager<ApplicationUser> _userManager;
+      // private readonly UserManager<ApplicationUser> _userManager;
         private readonly ITripService _tripService;
 
-        public TripController(ITripRepository tripRepository, UserManager<ApplicationUser> userManager, ITripService tripService)
+        public TripController(ITripRepository tripRepository, UserManager<ApplicationUser> userManager, ITripService tripService) : base(userManager)
         {
             _tripRepository = tripRepository;
-            _userManager = userManager;
+         //   _userManager = userManager;
             _tripService = tripService;
         }
 

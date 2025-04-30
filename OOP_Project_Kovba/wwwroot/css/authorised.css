@@ -37,3 +37,14 @@
         background-color: none; /* Темніший помаранчевий фон при натисканні */
         color: white;
     }
+
+#profile-panel p {
+    color: #555;
+    font-size: 16px;
+}
+
+    #profile-panel p strong {
+        color: #ff7f00;
+        font-size: 16px;
+    }
+    
