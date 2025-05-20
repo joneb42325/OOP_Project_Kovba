@@ -241,5 +241,13 @@ namespace OOP_Project_Kovba.Models
                 throw new InvalidOperationException("Недостатньо вільних місць.");
             MaxPassengers -= seats;
         }
+
+        public Booking Booking
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

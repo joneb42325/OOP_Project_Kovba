@@ -27,5 +27,21 @@ namespace OOP_Project_Kovba.Models
         
         public ICollection<Trip> trips { get; set; } = new List <Trip>();
         public ICollection<Booking> bookings { get; set; } = new List<Booking>();
+
+        public Trip Trip
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public Booking Booking
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

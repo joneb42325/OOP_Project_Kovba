@@ -1,26 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Class Name="OOP_Project_Kovba.Models.ApplicationUser">
-    <Position X="5" Y="1.5" Width="3.25" />
+    <Position X="8.75" Y="1.75" Width="3.25" />
+    <AssociationLine Name="Trip" Type="OOP_Project_Kovba.Models.Trip" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="2.869" />
+        <Point X="7.5" Y="2.869" />
+        <Point X="7.5" Y="5" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Booking" Type="OOP_Project_Kovba.Models.Booking" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12" Y="2.875" />
+        <Point X="14.25" Y="2.875" />
+        <Point X="14.25" Y="5" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAIAAAAAIAAIAAAAAIAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <HashCode>AAAAAAAIEAAAAIAAIAAAAAIAAABAAAAAAAAAAAAACAA=</HashCode>
       <FileName>Models\ApplicationUser.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Trip" />
+      <Property Name="Booking" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="OOP_Project_Kovba.Models.AuditableEntity">
-    <Position X="6.25" Y="12" Width="2.5" />
+    <Position X="10" Y="12.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQAAAAAACAAAACAAAAAAAAAAAEAACAAAAAAAAIA=</HashCode>
       <FileName>Models\AuditableEntity.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OOP_Project_Kovba.Models.Booking">
-    <Position X="7.25" Y="4.75" Width="5.5" />
-    <InheritanceLine Type="OOP_Project_Kovba.Models.AuditableEntity" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <Position X="11" Y="5" Width="5.5" />
+    <InheritanceLine Type="OOP_Project_Kovba.Models.AuditableEntity" ManuallyRouted="true">
       <Path>
-        <Point X="8.75" Y="12.938" />
-        <Point X="10.153" Y="12.938" />
-        <Point X="10.153" Y="8.832" />
+        <Point X="12.5" Y="13.188" />
+        <Point X="13.903" Y="13.188" />
+        <Point X="13.903" Y="9.082" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -29,21 +47,24 @@
     </TypeIdentifier>
   </Class>
   <Class Name="OOP_Project_Kovba.Models.Trip">
-    <Position X="0.5" Y="4.5" Width="4.5" />
+    <Position X="5" Y="5" Width="4.5" />
     <InheritanceLine Type="OOP_Project_Kovba.Models.AuditableEntity" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="6.25" Y="12.813" />
-        <Point X="2.637" Y="12.813" />
-        <Point X="2.637" Y="12.602" />
+        <Point X="10" Y="13.063" />
+        <Point X="7.137" Y="13.063" />
+        <Point X="7.137" Y="13.102" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AgACAAEEkUwlABIACIgAAAABQACAhFCIBAoEIQABBAA=</HashCode>
+      <HashCode>AgACAAEEkUwlABIACIgAAAABQADAhFCIBAoEIQABBAA=</HashCode>
       <FileName>Models\Trip.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Booking" />
+    </ShowAsAssociation>
   </Class>
   <Interface Name="OOP_Project_Kovba.Models.IBooking">
-    <Position X="13.5" Y="6.5" Width="2" />
+    <Position X="17.25" Y="6.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAAAAAAACAAAAAAAAEAEAAAAAAAAAA=</HashCode>
       <FileName>Models\IBooking.cs</FileName>

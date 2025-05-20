@@ -213,12 +213,12 @@ namespace GhodPool.Tests
         {
             //Arrange
             var booking = GetValidBooking();
-            var before = DateTime.UtcNow;
+            var before = DateTime.Now;
 
             //Act
             booking.SetUpdatedAt();
 
-            var after = DateTime.UtcNow;
+            var after = DateTime.Now;
 
             //Assert
             Assert.IsTrue(booking.UpdatedAt >= before && booking.UpdatedAt <= after);

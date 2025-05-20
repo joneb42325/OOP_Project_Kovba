@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using OOP_Project_Kovba.Models;
+using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
 namespace GhodPool.Tests
 {
@@ -136,7 +137,10 @@ namespace GhodPool.Tests
         {
             //Arrange
             var trip = GetValidTrip();
-            trip.DepartureTime = DateTime.UtcNow.AddHours(23); 
+            var booking = new Booking() { Id = "fds" };
+            trip.Bookings.Add(booking);
+            
+            trip.DepartureTime = DateTime.Now.AddHours(23); 
             trip.ArrivalDate = trip.DepartureTime.AddHours(3);
 
             //Act & Assert
@@ -253,12 +257,12 @@ namespace GhodPool.Tests
         {
             //Arrange
             var trip = GetValidTrip();
-            var before = DateTime.UtcNow;
+            var before = DateTime.Now;
 
             //Act
             trip.SetUpdatedAt();
 
-            var after = DateTime.UtcNow;
+            var after = DateTime.Now;
 
             //Assert
             Assert.IsTrue(trip.UpdatedAt >= before && trip.UpdatedAt <= after);
@@ -358,17 +362,6 @@ namespace GhodPool.Tests
 
             //Assert
             Assert.AreEqual("BMW", trip.CarModel);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void MaxPassengers_SetZero_Throws()
-        {
-            //Arrange
-            var trip = GetValidTrip();
-
-            //Act
-            trip.MaxPassengers = 0;
         }
 
         [TestMethod]

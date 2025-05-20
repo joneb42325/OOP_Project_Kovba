@@ -10,6 +10,8 @@ namespace OOP_Project_Kovba.ViewModels
         public string FromCity { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Вкажіть вулицю і номер будинку.")]
+        [RegularExpression(@"^[^,]+,\s*\d+[A-Za-zА-Яа-яІіЇїЄєҐґ]*$",
+        ErrorMessage = "Введіть у форматі: Назва вулиці, номер будинку (наприклад, Шевченка, 12А).")]
         public string FromStreetAndHouse { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Вкажіть місто прибуття.")]
@@ -17,7 +19,6 @@ namespace OOP_Project_Kovba.ViewModels
         public string ToCity { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Вкажіть вулицю і номер будинку прибуття.")]
-       // [RegularExpression(@"^[a-zA-Zа-яА-ЯїЇєЄіІґҐ0-9\s]+,\s*[a-zA-Zа-яА-ЯїЇєЄіІґҐ0-9]+$",ErrorMessage = "Вулиця і номер будинку мають бути у форматі: Назва вулиці, номер будинку.")]
         public string ToStreetAndHouse { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Вкажіть дату та час відправлення.")]
@@ -32,7 +33,7 @@ namespace OOP_Project_Kovba.ViewModels
         public int MaxPassengers { get; set; }
 
         [Required(ErrorMessage = "Вкажіть модель авто.")]
-        [StringLength(15, MinimumLength = 2, ErrorMessage = "Модель авто має бути від 2 до 15 символів.")]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "Модель авто має бути від 2 до 30 символів.")]
         public string CarModel { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Вкажіть ціну.")]
