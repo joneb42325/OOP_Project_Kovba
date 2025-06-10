@@ -66,7 +66,6 @@ namespace OOP_Project_Kovba
 
                 document.Content.Paragraphs.Add().Range.InsertParagraphAfter();
 
-                // --- Таблица поездок водителя ---
                 var driverTableTitle = document.Content.Paragraphs.Add();
                 driverTableTitle.Range.Text = "Driver's Trips (Table):";
                 driverTableTitle.Range.Font.Bold = 0;
@@ -81,7 +80,6 @@ namespace OOP_Project_Kovba
                     var driverTable = document.Tables.Add(driverTableTitle.Range, driverRowCount, driverColCount);
                     driverTable.Borders.Enable = 1;
 
-                    // Заголовки столбцов
                     driverTable.Cell(1, 1).Range.Text = "Trip ID";
                     driverTable.Cell(1, 2).Range.Text = "Departure";
                     driverTable.Cell(1, 3).Range.Text = "Arrival";
@@ -114,7 +112,6 @@ namespace OOP_Project_Kovba
 
                 document.Content.Paragraphs.Add().Range.InsertParagraphAfter();
 
-                // --- Текстовое описание бронирований пассажира ---
                 var bookingTextTitle = document.Content.Paragraphs.Add();
                 bookingTextTitle.Range.Text = "Passenger's Bookings (Text info):";
                 bookingTextTitle.Range.Font.Bold = 0;
@@ -144,7 +141,6 @@ namespace OOP_Project_Kovba
 
                 document.Content.Paragraphs.Add().Range.InsertParagraphAfter();
 
-                // --- Таблица бронирований пассажира ---
                 var bookingTableTitle = document.Content.Paragraphs.Add();
                 bookingTableTitle.Range.Text = "Passenger's Bookings (Table):";
                 bookingTableTitle.Range.Font.Bold = 0;
@@ -198,7 +194,6 @@ namespace OOP_Project_Kovba
                 Marshal.ReleaseComObject(bookingTextTitle);
                 Marshal.ReleaseComObject(bookingTableTitle);
 
-                // Сохранение и закрытие документа
                 var fileName = $"PlannedTrips_{DateTime.Now:yyyy_MM_dd_HH_mm}.docx";
                 var filePath = Path.Combine(@"C:\studies 2 курс\Course Project\OOP_Project_Kovba\OOP_Project_Kovba\wwwroot\exports", fileName);
 
