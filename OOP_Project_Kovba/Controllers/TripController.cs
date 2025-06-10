@@ -175,15 +175,21 @@ namespace MyMVC.Controllers
             var driverTrips = await _tripRepository.GetAllDriverTrips(userId);
             var passengerBookings = await _bookingRepository.GetAllUsersBookings(userId);
 
-            try
-            {
-                _exporterService.ExportPlannedTripsToWord(userId, driverTrips, passengerBookings);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Помилка в контроллері: {ex.Message}");
-            }
+            _exporterService.ExportPlannedTripsToWord(userId, driverTrips, passengerBookings);
+           
+            TempData["TripMesage"] = "Дані експортовано.";
+            return RedirectToAction("PlannedTrips");
+        }
 
+        public async Task<IActionResult> ExportPlannedTripsToExcel()
+        {
+            var userId = _userManager.GetUserId(User);
+            var driverTrips = await _tripRepository.GetAllDriverTrips(userId);
+            var passengerBookings = await _bookingRepository.GetAllUsersBookings(userId);
+
+           
+           _exporterService.ExportPlannedTripsToExcel(userId, driverTrips, passengerBookings);
+            
             TempData["TripMesage"] = "Дані експортовано.";
             return RedirectToAction("PlannedTrips");
         }

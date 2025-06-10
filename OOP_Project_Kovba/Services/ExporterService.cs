@@ -225,5 +225,132 @@ namespace OOP_Project_Kovba
                 GC.WaitForPendingFinalizers();
             }
         }
+
+        public void ExportPlannedTripsToExcel(string userId, IEnumerable<Trip> driverTrips, IEnumerable<Booking> passengerBookings)
+        {
+            Excel.Application excelApp = null;
+            Excel.Workbook workbook = null;
+            Excel.Worksheet worksheet = null;
+
+            try
+            {
+                excelApp = new Excel.Application();
+                workbook = excelApp.Workbooks.Add();
+                worksheet = (Excel.Worksheet)workbook.Sheets[1];
+                excelApp.Visible = false;
+
+                worksheet.Cells[1, 1] = "Planned Trips Report";
+                worksheet.Range["A1:E1"].Merge();
+                worksheet.Range["A1"].Font.Bold = true;
+                worksheet.Range["A1"].Font.Size = 16;
+
+                worksheet.Cells[3, 1] = "Driver's Trips:";
+                worksheet.Range["A3:E3"].Merge();
+                worksheet.Range["A3"].Font.Bold = true;
+                worksheet.Range["A3"].Font.Size = 12;
+
+                if (driverTrips.Any())
+                {
+                    int driverRow = 5;
+
+                    worksheet.Cells[driverRow, 1] = "Trip ID";
+                    worksheet.Cells[driverRow, 2] = "Departure";
+                    worksheet.Cells[driverRow, 3] = "Arrival";
+                    worksheet.Cells[driverRow, 4] = "Date";
+                    worksheet.Cells[driverRow, 5] = "Seats Available";
+
+                    worksheet.Rows[driverRow].Font.Bold = true;
+                    driverRow++;
+
+                    foreach (var trip in driverTrips)
+                    {
+                        worksheet.Cells[driverRow, 1] = trip.Id.ToString();
+                        worksheet.Cells[driverRow, 2] = trip.FromCity ?? "";
+                        worksheet.Cells[driverRow, 3] = trip.ToCity ?? "";
+                        worksheet.Cells[driverRow, 4] = trip.DepartureTime.ToString("yyyy-MM-dd HH:mm");
+                        worksheet.Cells[driverRow, 5] = trip.MaxPassengers.ToString();
+                        driverRow++;
+                    }
+                }
+                else
+                {
+                    worksheet.Cells[5, 1] = "No planned trips.";
+                }
+
+                int bookingsStartRow = driverTrips.Any() ? driverTrips.Count() + 8 : 8;
+
+                worksheet.Cells[bookingsStartRow, 1] = "Passenger's Bookings:";
+                worksheet.Range[$"A{bookingsStartRow}:F{bookingsStartRow}"].Merge();
+                worksheet.Range[$"A{bookingsStartRow}"].Font.Bold = true;
+                worksheet.Range[$"A{bookingsStartRow}"].Font.Size = 12;
+
+                if (passengerBookings.Any())
+                {
+                    int bookingRow = bookingsStartRow + 2;
+
+                    worksheet.Cells[bookingRow, 1] = "Booking ID";
+                    worksheet.Cells[bookingRow, 2] = "Trip ID";
+                    worksheet.Cells[bookingRow, 3] = "Departure";
+                    worksheet.Cells[bookingRow, 4] = "Arrival";
+                    worksheet.Cells[bookingRow, 5] = "Date";
+                    worksheet.Cells[bookingRow, 6] = "Status";
+
+                    worksheet.Rows[bookingRow].Font.Bold = true;
+                    bookingRow++;
+
+                    foreach (var booking in passengerBookings)
+                    {
+                        worksheet.Cells[bookingRow, 1] = booking.Id.ToString();
+                        worksheet.Cells[bookingRow, 2] = booking.Trip?.Id.ToString() ?? "";
+                        worksheet.Cells[bookingRow, 3] = booking.Trip?.FromCity ?? "";
+                        worksheet.Cells[bookingRow, 4] = booking.Trip?.ToCity ?? "";
+                        worksheet.Cells[bookingRow, 5] = booking.Trip?.DepartureTime.ToString("yyyy-MM-dd HH:mm") ?? "";
+                        worksheet.Cells[bookingRow, 6] = booking.IsCancelled ? "Cancelled" : "Confirmed";
+                        bookingRow++;
+                    }
+                }
+                else
+                {
+                    worksheet.Cells[bookingsStartRow + 2, 1] = "No bookings.";
+                }
+
+                worksheet.Columns.AutoFit();
+
+                var fileName = $"PlannedTrips_{DateTime.Now:yyyy_MM_dd_HH_mm}.xlsx";
+                var filePath = Path.Combine(@"C:\studies 2 курс\Course Project\OOP_Project_Kovba\OOP_Project_Kovba\wwwroot\exports", fileName);
+
+                workbook.SaveAs(filePath);
+                workbook.Close(false);
+
+                Console.WriteLine($"Файл успішно збережено по шляху: {filePath}");
+            }
+            catch (Exception ex)
+            {
+                if (workbook != null)
+                {
+                    workbook.Close(false);
+                    Marshal.ReleaseComObject(workbook);
+                }
+                Console.WriteLine($"Помилка при експорті: {ex.Message}");
+            }
+            finally
+            {
+                if (worksheet != null)
+                    Marshal.ReleaseComObject(worksheet);
+                if (workbook != null)
+                    Marshal.ReleaseComObject(workbook);
+                if (excelApp != null)
+                {
+                    excelApp.Quit();
+                    Marshal.ReleaseComObject(excelApp);
+                }
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
+        }
     }
-}
+ }
+
