@@ -221,8 +221,6 @@ namespace OOP_Project_Kovba
 
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
             }
         }
 
@@ -231,6 +229,7 @@ namespace OOP_Project_Kovba
             Excel.Application excelApp = null;
             Excel.Workbook workbook = null;
             Excel.Worksheet worksheet = null;
+            Excel.Range range = null;
 
             try
             {
@@ -240,14 +239,18 @@ namespace OOP_Project_Kovba
                 excelApp.Visible = false;
 
                 worksheet.Cells[1, 1] = "Planned Trips Report";
-                worksheet.Range["A1:E1"].Merge();
-                worksheet.Range["A1"].Font.Bold = true;
-                worksheet.Range["A1"].Font.Size = 16;
+                range = worksheet.Range["A1:E1"];
+                range.Merge();
+                range.Font.Bold = true;
+                range.Font.Size = 16;
+                Marshal.ReleaseComObject(range);
 
                 worksheet.Cells[3, 1] = "Driver's Trips:";
-                worksheet.Range["A3:E3"].Merge();
-                worksheet.Range["A3"].Font.Bold = true;
-                worksheet.Range["A3"].Font.Size = 12;
+                range = worksheet.Range["A3:E3"];
+                range.Merge();
+                range.Font.Bold = true;
+                range.Font.Size = 12;
+                Marshal.ReleaseComObject(range);
 
                 if (driverTrips.Any())
                 {
@@ -259,7 +262,9 @@ namespace OOP_Project_Kovba
                     worksheet.Cells[driverRow, 4] = "Date";
                     worksheet.Cells[driverRow, 5] = "Seats Available";
 
-                    worksheet.Rows[driverRow].Font.Bold = true;
+                    range = worksheet.Rows[driverRow];
+                    range.Font.Bold = true;
+                    Marshal.ReleaseComObject(range);
                     driverRow++;
 
                     foreach (var trip in driverTrips)
@@ -280,9 +285,11 @@ namespace OOP_Project_Kovba
                 int bookingsStartRow = driverTrips.Any() ? driverTrips.Count() + 8 : 8;
 
                 worksheet.Cells[bookingsStartRow, 1] = "Passenger's Bookings:";
-                worksheet.Range[$"A{bookingsStartRow}:F{bookingsStartRow}"].Merge();
-                worksheet.Range[$"A{bookingsStartRow}"].Font.Bold = true;
-                worksheet.Range[$"A{bookingsStartRow}"].Font.Size = 12;
+                range = worksheet.Range[$"A{bookingsStartRow}:F{bookingsStartRow}"];
+                range.Merge();
+                range.Font.Bold = true;
+                range.Font.Size = 12;
+                Marshal.ReleaseComObject(range);
 
                 if (passengerBookings.Any())
                 {
@@ -295,7 +302,9 @@ namespace OOP_Project_Kovba
                     worksheet.Cells[bookingRow, 5] = "Date";
                     worksheet.Cells[bookingRow, 6] = "Status";
 
-                    worksheet.Rows[bookingRow].Font.Bold = true;
+                    range = worksheet.Rows[bookingRow];
+                    range.Font.Bold = true;
+                    Marshal.ReleaseComObject(range);
                     bookingRow++;
 
                     foreach (var booking in passengerBookings)
@@ -320,25 +329,21 @@ namespace OOP_Project_Kovba
                 var filePath = Path.Combine(@"C:\studies 2 курс\Course Project\OOP_Project_Kovba\OOP_Project_Kovba\wwwroot\exports", fileName);
 
                 workbook.SaveAs(filePath);
-                workbook.Close(false);
-
                 Console.WriteLine($"Файл успішно збережено по шляху: {filePath}");
             }
             catch (Exception ex)
+            {
+                Console.WriteLine($"Помилка при експорті: {ex.Message}");
+            }
+            finally
             {
                 if (workbook != null)
                 {
                     workbook.Close(false);
                     Marshal.ReleaseComObject(workbook);
                 }
-                Console.WriteLine($"Помилка при експорті: {ex.Message}");
-            }
-            finally
-            {
                 if (worksheet != null)
                     Marshal.ReleaseComObject(worksheet);
-                if (workbook != null)
-                    Marshal.ReleaseComObject(workbook);
                 if (excelApp != null)
                 {
                     excelApp.Quit();
@@ -347,10 +352,9 @@ namespace OOP_Project_Kovba
 
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
             }
         }
+
     }
- }
+}
 
