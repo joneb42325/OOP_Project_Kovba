@@ -11,12 +11,8 @@ html, body {
     color: #333;
 }
 
-body {   
-    flex: 1; /* Контент будет занимать всё пространство */
-}
 
 .footer {
-    margin-top: auto;
     text-align: center;
     padding: 10px;
     background-color: #fff;
@@ -30,8 +26,7 @@ body {
     align-items: flex-start;
     gap: 50px;
     padding: 47px;
-    margin: -20px auto;
-    margin-top: 80px;
+    margin: 80px auto 20px auto;
 }
 
 
@@ -62,6 +57,7 @@ label {
     color: #333;
     display: block;
     margin-bottom: 5px;
+    font-size: 20px;
 }
 
 /* Поля ввода */
@@ -70,7 +66,7 @@ input, select {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 18px;
     transition: border 0.3s ease-in-out;
 }
 
@@ -122,7 +118,6 @@ button {
     color: #ff7f00;
     font-size: 27px;
     margin-bottom: 10px;
-    text-wrap
 }
 
 .info-box p {

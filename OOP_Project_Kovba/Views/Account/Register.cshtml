@@ -12,7 +12,7 @@
 <div class="container">
     <h2 class="center-align">Реєстрація</h2>
 
-    <div asp-validation-summary="All" class="text-danger"></div>
+
 
     <form asp-controller="Account" asp-action="Register" method="post">
 
@@ -41,7 +41,8 @@
         <div class="form-group">
             <label asp-for="ConfirmPassword">Підтвердження пароля</label>
             <input asp-for="ConfirmPassword" class="form-control" required />
-            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            @*<span asp-validation-for="ConfirmPassword" class="text-danger"></span>*@
+            <div asp-validation-summary="All" class="text-danger"></div>
         </div>
 
         <!-- Submit Button -->

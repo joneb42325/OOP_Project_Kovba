@@ -1,18 +1,26 @@
 ﻿using OOP_Project_Kovba.Interfaces;
 using OOP_Project_Kovba.Models;
 using OOP_Project_Kovba.ViewModels;
-
+using OOP_Project_Kovba.Services;
 namespace OOP_Project_Kovba
 {
     public class TripService : ITripService
     {
         private readonly ITripRepository _tripRepository;
         private readonly IBookingRepository _bookingRepository;
+        public delegate void TripBookedEventHandler(object sender, TripBookedEventArgs e);
+        public event TripBookedEventHandler? TripBooked;
         public TripService(ITripRepository tripRepository, IBookingRepository bookingRepository)
         {
             _tripRepository = tripRepository;
             _bookingRepository = bookingRepository;
+
+            TripBooked += (sender, e) =>
+            {
+                Console.WriteLine($"User {e.UserId} booked {e.SeatsBooked} seats for trip {e.TripId}");
+            };
         }
+
 
         public async Task<TripDetailsViewModel?> GetTripDetailsViewModelAsync(string id)
         {
@@ -47,6 +55,11 @@ namespace OOP_Project_Kovba
         public async Task<(bool Success, string Message, TripDetailsViewModel? ViewModel)> TryCreateBookingAsync(string tripId, string userId, int seatsBooked)
         {
             var trip = await _tripRepository.GetTripByIdAsync(tripId);
+
+            if (seatsBooked < 1 || seatsBooked > trip.MaxPassengers)
+            {
+                return (false, "Некоректна кількість місць", await GetTripDetailsViewModelAsync(tripId));
+            }
             if (trip == null)
                 return (false, "Поїздку не знайдено", null);
 
@@ -74,7 +87,19 @@ namespace OOP_Project_Kovba
 
             var updatedViewModel = await GetTripDetailsViewModelAsync(tripId);
 
+            OnTripBooked(tripId, userId, seatsBooked);
+
             return (true, "Бронювання успішно створено!", updatedViewModel);
+        }
+
+        public virtual void OnTripBooked(string tripId, string userId, int seatsBooked)
+        {
+            TripBooked?.Invoke(this, new TripBookedEventArgs
+            {
+                TripId = tripId,
+                UserId = userId,
+                SeatsBooked = seatsBooked
+            });
         }
 
         public async Task<IEnumerable<TripResultViewModel>> GetDriversPlannedTripsAsync(string userId)

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OOP_Project_Kovba.Interfaces;
 using OOP_Project_Kovba.ViewModels;
 using OOP_Project_Kovba.Models;
+using OOP_Project_Kovba.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -16,15 +17,15 @@ namespace MyMVC.Controllers
     {
         private readonly ITripRepository _tripRepository;
         private readonly IBookingRepository _bookingRepository;
-      // private readonly UserManager<ApplicationUser> _userManager;
         private readonly ITripService _tripService;
+        private readonly IExporterService _exporterService;
 
-        public TripController(ITripRepository tripRepository, IBookingRepository bookingRepository, UserManager<ApplicationUser> userManager, ITripService tripService) : base(userManager)
+        public TripController(ITripRepository tripRepository, IBookingRepository bookingRepository, UserManager<ApplicationUser> userManager, ITripService tripService, IExporterService exporterService) : base(userManager)
         {
             _tripRepository = tripRepository;
             _bookingRepository = bookingRepository;
-         //   _userManager = userManager;
             _tripService = tripService;
+            _exporterService = exporterService;
         }
 
         public IActionResult Index()
@@ -64,7 +65,8 @@ namespace MyMVC.Controllers
                     ?? throw new InvalidOperationException("User ID must not be null")
             };
             await _tripRepository.AddTripAsync(trip);
-            return RedirectToAction("Index", "Home");
+            TempData["CreateTripMessage"] = "Поїздку успішно створено.";
+            return RedirectToAction("CreateTrip", "Trip");
         }
 
         [HttpGet("/search")]
@@ -72,7 +74,7 @@ namespace MyMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("~/Views/Home/Index.cshtml", model);
             }
 
             var trips = await _tripRepository.GetTripsAsync(model.From, model.To, model.Date, model.Passengers);
@@ -164,6 +166,25 @@ namespace MyMVC.Controllers
             await _bookingRepository.DeleteBookingsByTripIdAsync(tripId);
             await _tripRepository.UpdateTripAsync(trip);
             TempData["TripMessage"] = "Поїздку успішно видалено.";
+            return RedirectToAction("PlannedTrips");
+        }
+
+        public async Task<IActionResult> ExportPlannedTripsToWord()
+        {
+            var userId = _userManager.GetUserId(User);
+            var driverTrips = await _tripRepository.GetAllDriverTrips(userId);
+            var passengerBookings = await _bookingRepository.GetAllUsersBookings(userId);
+
+            try
+            {
+                _exporterService.ExportPlannedTripsToWord(userId, driverTrips, passengerBookings);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Помилка в контроллері: {ex.Message}");
+            }
+
+            TempData["TripMesage"] = "Дані експортовано.";
             return RedirectToAction("PlannedTrips");
         }
     }

@@ -73,11 +73,13 @@ namespace OOP_Project_Kovba.Models
 
         public override string GetInfo()
         {
-            return $"Поїздка: {Trip.FromCity} → {Trip.ToCity}, " +
-                   $"Кількість місць: {SeatsBooked}, " +
-                   $"Модель авто: {Trip.CarModel}, " +
-                   $"Ціна: {Trip.Price} грн";
+            return
+                $"Поїздка: {Trip.FromCity} → {Trip.ToCity}\n" +
+                $"Кількість місць: {SeatsBooked}\n" +
+                $"Модель авто: {Trip.CarModel}\n" +
+                $"Ціна: {Trip.Price} грн";
         }
+
 
         public void CancelBooking()
         {

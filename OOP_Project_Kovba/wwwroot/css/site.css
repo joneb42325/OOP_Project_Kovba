@@ -129,6 +129,7 @@ nav {
         justify-content: space-between;
     }
 
+
     .search-form input,
     .search-form select {
         flex: 1; /* Рівномірний розподіл */
@@ -156,6 +157,19 @@ nav {
             background: #e76f00;
         }
 
+.validation-messages {
+    width: 70%; 
+    max-width: 1300px;
+    margin: 0px auto 10px auto;
+    text-align: center;
+}
+    .validation-messages span {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 35px;
+        color: #d9534f;
+    }
+
 .text-center {
     text-align: left; /* Выравнивание текста по левому краю */
     margin: 30px 500px; /* Добавляем отступы, чтобы текст не прилипал к краям */
@@ -177,7 +191,7 @@ nav {
 
 .why-us {
     background-color: #f9f9f9;
-    padding: 50px 20px;
+    padding: 20px 20px;
     text-align: center;
 }
 
@@ -200,6 +214,7 @@ nav {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 250px;
     text-align: center;
+    margin-bottom: 70px;
 }
 
     .reason h3 {

@@ -44,7 +44,8 @@ namespace OOP_Project_Kovba.Data.Repositories
             return await _context.Trips
             .Include(t => t.Driver)
             .Where(t => t.DriverId == userId
-                    && t.IsCancelled == false)
+                    && t.IsCancelled == false
+                    && t.ArrivalDate.Date >= DateTime.Today)
             .OrderBy(t => t.DepartureTime)
             .ToListAsync();
         }

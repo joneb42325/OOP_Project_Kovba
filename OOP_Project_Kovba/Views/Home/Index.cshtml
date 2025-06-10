@@ -1,4 +1,5 @@
-﻿@{
+﻿@model OOP_Project_Kovba.ViewModels.SearchTripViewModel
+@{
     ViewData["Title"] = "GhodPool";
 }
 
@@ -15,7 +16,7 @@
         <form action="/search" method="GET">
             <input type="text" name="from" placeholder="Звідки" required>
             <input type="text" name="to" placeholder="Куди" required>
-            <input type="date" name="date" required>
+            <input type="date" name="date" required> 
             <select name="passengers">
                 <option value="1">1 пасажир</option>
                 <option value="2">2 пасажири</option>
@@ -26,7 +27,14 @@
         </form>
     </div>
 </div>
+<
 <div class="why-us">
+        <div class="validation-messages">
+    <span asp-validation-for="From" class="text-danger"></span>
+    <span asp-validation-for="To" class="text-danger"></span>
+    <span asp-validation-for="Date" class="text-danger"></span>
+    <span asp-validation-for="Passengers" class="text-danger"></span>
+        </div>
     <h2>Чому обирають GhodPool?</h2>
     <div class="reasons">
         <div class="reason">

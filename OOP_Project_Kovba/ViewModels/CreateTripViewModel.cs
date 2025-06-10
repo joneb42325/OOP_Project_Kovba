@@ -2,11 +2,12 @@
 
 namespace OOP_Project_Kovba.ViewModels
 {
-    public class CreateTripViewModel 
+    public class CreateTripViewModel : IValidatableObject
     {
 
         [Required(ErrorMessage = "Вкажіть місто відправлення.")]
-        [StringLength(15, MinimumLength = 2, ErrorMessage = "Місто відправлення має бути від 2 до 15 символів.")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "Місто відправлення має бути від 3 до 20 символів.")]
+        [RegularExpression(@"^[^\d]+$", ErrorMessage = "Назва міста не повинна містити цифри")]
         public string FromCity { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Вкажіть вулицю і номер будинку.")]
@@ -15,18 +16,23 @@ namespace OOP_Project_Kovba.ViewModels
         public string FromStreetAndHouse { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Вкажіть місто прибуття.")]
-        [StringLength(15, MinimumLength = 2, ErrorMessage = "Місто прибуття має бути від 2 до 15 символів.")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "Місто прибуття має бути від 3 до 20 символів.")]
+        [RegularExpression(@"^[^\d]+$", ErrorMessage = "Назва міста не повинна містити цифри")]
         public string ToCity { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Вкажіть вулицю і номер будинку прибуття.")]
+        [RegularExpression(@"^[^,]+,\s*\d+[A-Za-zА-Яа-яІіЇїЄєҐґ]*$",
+        ErrorMessage = "Введіть у форматі: Назва вулиці, номер будинку (наприклад, Шевченка, 12А).")]
         public string ToStreetAndHouse { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Вкажіть дату та час відправлення.")]
         [DataType(DataType.DateTime)]
+        [CustomDateValidation(ErrorMessage = "Дата повинна бути не раніше сьогоднішньої.")]
         public DateTime DepartureDate { get; set; }
 
         [Required(ErrorMessage = "Вкажіть дату та час прибуття.")]
         [DataType(DataType.DateTime)]
+        [CustomDateValidation(ErrorMessage = "Дата повинна бути не раніше сьогоднішньої.")]
         public DateTime ArrivalDate { get; set; }
 
         [Range(1, 4, ErrorMessage = "Кількість пасажирів має бути від 1 до 4.")]
@@ -42,6 +48,14 @@ namespace OOP_Project_Kovba.ViewModels
 
         public string? Comment { get; set; }
 
-
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (DepartureDate >= ArrivalDate)
+            {
+                yield return new ValidationResult(
+                    "Дата відправлення повинна бути раніше дати прибуття",
+                    new[] { nameof(DepartureDate), nameof(ArrivalDate) });
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ using OOP_Project_Kovba.Models;
 using OOP_Project_Kovba.Interfaces;
 using OOP_Project_Kovba.Data.Repositories;
 using OOP_Project_Kovba;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,8 @@ builder.Services.AddScoped<ITripRepository, TripRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 
 builder.Services.AddScoped<ITripService, TripService>();
+
+builder.Services.AddScoped<IExporterService, ExporterService>();
 
 var app = builder.Build();
 

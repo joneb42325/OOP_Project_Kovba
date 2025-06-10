@@ -205,12 +205,13 @@ namespace OOP_Project_Kovba.Models
 
         public override string GetInfo()
         {
-            return $"Маршрут: {FromCity} → {ToCity}, " +
-                   $"Відправлення: {DepartureTime}, " +
-                   $"Прибуття: {ArrivalDate}, " +
-                   $"Авто: {CarModel}, " +
+            return $"Маршрут: {FromCity} → {ToCity}\n" +
+                   $"Відправлення: {DepartureTime}\n" +
+                   $"Прибуття: {ArrivalDate}\n" +
+                   $"Авто: {CarModel}\n" +
                    $"Ціна: {Price} грн";
         }
+
 
         public void CancelTrip()
         {
@@ -240,14 +241,6 @@ namespace OOP_Project_Kovba.Models
             if (seats > MaxPassengers)
                 throw new InvalidOperationException("Недостатньо вільних місць.");
             MaxPassengers -= seats;
-        }
-
-        public Booking Booking
-        {
-            get => default;
-            set
-            {
-            }
         }
     }
 }

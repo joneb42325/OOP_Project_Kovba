@@ -90,6 +90,12 @@
         <div class="info-box">
             <h3>Станьте водієм GhodPool - Беріть попутників та економте на бензині.</h3>
             <img src="~/img/driver.jpg" alt="Станьте водієм" class="info-img">
+            @if (TempData["CreateTripMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    <h3>@TempData["CreateTripMessage"]</h3>
+                </div>
+            }
         </div>
     </div>
 </body>

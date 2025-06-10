@@ -36,17 +36,20 @@
             <p><strong>⏳ Час прибуття:</strong> @Model.ArrivalTime.ToString("HH:mm")</p>
             <p><strong>🚘 Автомобіль:</strong> @Model.CarModel</p>
             <p><strong>💬 Коментар:</strong> @Model.Comment</p>
-            <p>💺 Місць залишилось: @Model.MaxPassengers</p>
+            <p><strong>💺 Місць залишилось: </strong>@Model.MaxPassengers</p>
             <p><strong>💰 Ціна:</strong> @Model.Price</p>
-            <form method="post" asp-action="CreateBooking" asp-controller="Booking">
+            <form method="post" asp-action="CreateBooking" asp-controller="Booking" class="booking-form">
                 <input type="hidden" name="TripId" value="@Model.Id" />
+                <div class="form-group">
                 <label> Введіть кількість місць </label>
-                 <select name="SeatsBooked" >
+                <select name="SeatsBooked" id="SeatsBooked" class="form-select">
                     @for(int i = 1; i <= Model.MaxPassengers; i++)
                     {
                         <option value="@i">@i</option>
                     }
                  </select>
+                </div>
+
                 <button type ="submit" class="book-button"> Забронювати місце</button>
                 @if (TempData["SuccessMessage"] != null)
                 {

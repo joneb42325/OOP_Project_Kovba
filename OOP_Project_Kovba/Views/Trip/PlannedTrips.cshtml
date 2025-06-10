@@ -16,6 +16,10 @@
     <link rel="stylesheet" href="~/css/planned-trips.css">
 </head>
 <body>
+    <form method="post" asp-action="ExportPlannedTripsToWord" asp-controller="Trip">
+    <button class="details-button">Export to Word</button>
+   </form>
+    <button class="details-button">Export to Excel</button>
     <div class="main-container">
         <div class="results-container">
             <h2>Ваші заплановані поїздки як водій</h2>
@@ -113,6 +117,7 @@
             {
                 <p class="no-trips-message">Бронювань за вашим запитом не знайдено.</p>
             }
+            
         </div>
     </div>
 </body>

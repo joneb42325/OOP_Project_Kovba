@@ -30,7 +30,8 @@ namespace OOP_Project_Kovba.Data.Repositories
             .Include(t => t.Trip.Driver)
             .Include(t => t.User)
             .Where(t => t.UserId == userId
-                    && t.IsCancelled == false)
+                    && t.IsCancelled == false
+                    && t.Trip.ArrivalDate.Date >= DateTime.Today)
             .OrderBy(t => t.Trip.DepartureTime)
             .ToListAsync();
         }
