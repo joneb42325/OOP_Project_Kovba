@@ -11,7 +11,7 @@ using OOP_Project_Kovba;
 using OOP_Project_Kovba.Controllers;
 
 
-namespace MyMVC.Controllers
+namespace OOP_Project_Kovba.Controllers
 {
     public class TripController : BaseController
     {
@@ -120,6 +120,11 @@ namespace MyMVC.Controllers
         public async Task<IActionResult> PlannedTrips()
         {
             var userId = _userManager.GetUserId(User);
+
+            if (userId is null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             var driverTrips = await _tripService.GetDriversPlannedTripsAsync(userId);
             var passengerBookings = await _tripService.GetPassengerBookingsAsync(userId);
 
@@ -172,6 +177,10 @@ namespace MyMVC.Controllers
         public async Task<IActionResult> ExportPlannedTripsToWord()
         {
             var userId = _userManager.GetUserId(User);
+            if (userId is null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             var driverTrips = await _tripRepository.GetAllDriverTrips(userId);
             var passengerBookings = await _bookingRepository.GetAllUsersBookings(userId);
 
@@ -184,6 +193,11 @@ namespace MyMVC.Controllers
         public async Task<IActionResult> ExportPlannedTripsToExcel()
         {
             var userId = _userManager.GetUserId(User);
+            if (userId is null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             var driverTrips = await _tripRepository.GetAllDriverTrips(userId);
             var passengerBookings = await _bookingRepository.GetAllUsersBookings(userId);
 

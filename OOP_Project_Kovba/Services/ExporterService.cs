@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace OOP_Project_Kovba
+namespace OOP_Project_Kovba.Services
 {
     public class ExporterService : IExporterService
     {
@@ -20,8 +20,8 @@ namespace OOP_Project_Kovba
         }
         public void ExportPlannedTripsToWord(string userId, IEnumerable<Trip> driverTrips, IEnumerable<Booking> passengerBookings)
         {
-            Word.Application wordApp = null;
-            Word.Document document = null;
+            Word.Application wordApp = null!;
+            Word.Document document = null!;
 
             try
             {
@@ -52,7 +52,11 @@ namespace OOP_Project_Kovba
                         tripPara.Range.Font.Bold = 0;
                         tripPara.Range.InsertParagraphAfter();
 
-                        Marshal.ReleaseComObject(tripPara);
+                        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        {
+                            Marshal.ReleaseComObject(tripPara);
+                        }
+
                     }
                 }
                 else
@@ -61,7 +65,8 @@ namespace OOP_Project_Kovba
                     noTripsPara.Range.Text = "No planned trips.";
                     noTripsPara.Range.InsertParagraphAfter();
 
-                    Marshal.ReleaseComObject(noTripsPara);
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        Marshal.ReleaseComObject(noTripsPara);
                 }
 
                 document.Content.Paragraphs.Add().Range.InsertParagraphAfter();
@@ -98,8 +103,8 @@ namespace OOP_Project_Kovba
                         driverTable.Cell(driverRow, 5).Range.Text = trip.MaxPassengers.ToString();
                         driverRow++;
                     }
-
-                    Marshal.ReleaseComObject(driverTable);
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        Marshal.ReleaseComObject(driverTable);
                 }
                 else
                 {
@@ -107,7 +112,8 @@ namespace OOP_Project_Kovba
                     noTripsPara.Range.Text = "No planned trips.";
                     noTripsPara.Range.InsertParagraphAfter();
 
-                    Marshal.ReleaseComObject(noTripsPara);
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        Marshal.ReleaseComObject(noTripsPara);
                 }
 
                 document.Content.Paragraphs.Add().Range.InsertParagraphAfter();
@@ -127,7 +133,8 @@ namespace OOP_Project_Kovba
                         bookingPara.Range.Font.Bold = 0;
                         bookingPara.Range.InsertParagraphAfter();
 
-                        Marshal.ReleaseComObject(bookingPara);
+                        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                            Marshal.ReleaseComObject(bookingPara);
                     }
                 }
                 else
@@ -136,7 +143,8 @@ namespace OOP_Project_Kovba
                     noBookingsPara.Range.Text = "No bookings.";
                     noBookingsPara.Range.InsertParagraphAfter();
 
-                    Marshal.ReleaseComObject(noBookingsPara);
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        Marshal.ReleaseComObject(noBookingsPara);
                 }
 
                 document.Content.Paragraphs.Add().Range.InsertParagraphAfter();
@@ -176,7 +184,8 @@ namespace OOP_Project_Kovba
                         bookingRow++;
                     }
 
-                    Marshal.ReleaseComObject(bookingTable);
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        Marshal.ReleaseComObject(bookingTable);
                 }
                 else
                 {
@@ -184,15 +193,18 @@ namespace OOP_Project_Kovba
                     noBookingsPara.Range.Text = "No bookings.";
                     noBookingsPara.Range.InsertParagraphAfter();
 
-                    Marshal.ReleaseComObject(noBookingsPara);
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        Marshal.ReleaseComObject(noBookingsPara);
                 }
 
-                // Очистка
-                Marshal.ReleaseComObject(titleParagraph);
-                Marshal.ReleaseComObject(driverTextTitle);
-                Marshal.ReleaseComObject(driverTableTitle);
-                Marshal.ReleaseComObject(bookingTextTitle);
-                Marshal.ReleaseComObject(bookingTableTitle);
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    Marshal.ReleaseComObject(titleParagraph);
+                    Marshal.ReleaseComObject(driverTextTitle);
+                    Marshal.ReleaseComObject(driverTableTitle);
+                    Marshal.ReleaseComObject(bookingTextTitle);
+                    Marshal.ReleaseComObject(bookingTableTitle);
+                }
 
                 var fileName = $"PlannedTrips_{DateTime.Now:yyyy_MM_dd_HH_mm}.docx";
                 var filePath = Path.Combine(@"C:\studies 2 курс\Course Project\OOP_Project_Kovba\OOP_Project_Kovba\wwwroot\exports", fileName);
@@ -207,7 +219,8 @@ namespace OOP_Project_Kovba
                 if (document != null)
                 {
                     document.Close(false);
-                    Marshal.ReleaseComObject(document);
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        Marshal.ReleaseComObject(document);
                 }
                 Console.WriteLine($"Помилка при експорті: {ex.Message}");
             }
@@ -216,7 +229,8 @@ namespace OOP_Project_Kovba
                 if (wordApp != null)
                 {
                     wordApp.Quit();
-                    Marshal.ReleaseComObject(wordApp);
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        Marshal.ReleaseComObject(wordApp);
                 }
 
                 GC.Collect();
@@ -226,10 +240,10 @@ namespace OOP_Project_Kovba
 
         public void ExportPlannedTripsToExcel(string userId, IEnumerable<Trip> driverTrips, IEnumerable<Booking> passengerBookings)
         {
-            Excel.Application excelApp = null;
-            Excel.Workbook workbook = null;
-            Excel.Worksheet worksheet = null;
-            Excel.Range range = null;
+            Excel.Application excelApp = null!;
+            Excel.Workbook workbook = null!;
+            Excel.Worksheet worksheet = null!;
+            Excel.Range range = null!;
 
             try
             {
@@ -243,14 +257,16 @@ namespace OOP_Project_Kovba
                 range.Merge();
                 range.Font.Bold = true;
                 range.Font.Size = 16;
-                Marshal.ReleaseComObject(range);
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    Marshal.ReleaseComObject(range);
 
                 worksheet.Cells[3, 1] = "Driver's Trips:";
                 range = worksheet.Range["A3:E3"];
                 range.Merge();
                 range.Font.Bold = true;
                 range.Font.Size = 12;
-                Marshal.ReleaseComObject(range);
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    Marshal.ReleaseComObject(range);
 
                 if (driverTrips.Any())
                 {
@@ -264,7 +280,8 @@ namespace OOP_Project_Kovba
 
                     range = worksheet.Rows[driverRow];
                     range.Font.Bold = true;
-                    Marshal.ReleaseComObject(range);
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        Marshal.ReleaseComObject(range);
                     driverRow++;
 
                     foreach (var trip in driverTrips)
@@ -289,7 +306,8 @@ namespace OOP_Project_Kovba
                 range.Merge();
                 range.Font.Bold = true;
                 range.Font.Size = 12;
-                Marshal.ReleaseComObject(range);
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    Marshal.ReleaseComObject(range);
 
                 if (passengerBookings.Any())
                 {
@@ -304,7 +322,8 @@ namespace OOP_Project_Kovba
 
                     range = worksheet.Rows[bookingRow];
                     range.Font.Bold = true;
-                    Marshal.ReleaseComObject(range);
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        Marshal.ReleaseComObject(range);
                     bookingRow++;
 
                     foreach (var booking in passengerBookings)
@@ -340,14 +359,17 @@ namespace OOP_Project_Kovba
                 if (workbook != null)
                 {
                     workbook.Close(false);
-                    Marshal.ReleaseComObject(workbook);
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        Marshal.ReleaseComObject(workbook);
                 }
                 if (worksheet != null)
-                    Marshal.ReleaseComObject(worksheet);
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        Marshal.ReleaseComObject(worksheet);
                 if (excelApp != null)
                 {
                     excelApp.Quit();
-                    Marshal.ReleaseComObject(excelApp);
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        Marshal.ReleaseComObject(excelApp);
                 }
 
                 GC.Collect();

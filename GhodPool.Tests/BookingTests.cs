@@ -10,9 +10,9 @@ namespace GhodPool.Tests
     [TestClass]
     public class BookingTests
     {
-        private ApplicationUser user;
-        private Trip trip;
-        private ApplicationUser driver;
+        private ApplicationUser user = null!;
+        private Trip trip = null!;
+        private ApplicationUser driver = null!;
 
         [TestInitialize] 
         public void Init() {

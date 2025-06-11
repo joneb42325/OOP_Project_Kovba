@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace MyMVC.Interfaces
+namespace OOP_Project_Kovba.Interfaces
 {
     public interface IDatabaseConnection
     {

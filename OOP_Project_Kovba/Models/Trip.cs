@@ -7,7 +7,7 @@ namespace OOP_Project_Kovba.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
+        public string Id { get; set; } = null!;
 
         private string _fromCity = string.Empty;
         private string _fromStreetAndHouse = string.Empty;
@@ -17,7 +17,7 @@ namespace OOP_Project_Kovba.Models
         private string _driverId = string.Empty;
         private int _maxPassengers;
         private decimal _price;
-        private string _comment;
+        private string _comment = string.Empty;
         private DateTime _departureTime;
         private DateTime _arrivalDate;
         private bool _isCancelled = false;
@@ -166,7 +166,7 @@ namespace OOP_Project_Kovba.Models
         }
 
         [Required]
-        public ApplicationUser Driver { get; set; }
+        public ApplicationUser Driver { get; set; } = null!;
         public ICollection<ApplicationUser> Passengers { get; set; } = new List<ApplicationUser>();
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
         public static int MaxSeatsForTrip { get; } = 50;

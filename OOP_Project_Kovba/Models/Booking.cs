@@ -7,7 +7,7 @@ namespace OOP_Project_Kovba.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
+        public string Id { get; set; } = null!;
 
         private int _seatsBooked;
         
@@ -16,12 +16,12 @@ namespace OOP_Project_Kovba.Models
         private bool _isCancelled = false;
 
         [Required]
-        public ApplicationUser User { get; set; }
+        public ApplicationUser User { get; set; } = null!;
 
         [Required]
-        public Trip Trip { get; set; }
+        public Trip Trip { get; set; } = null!;
 
-        public string TripId { get; set; }
+        public string TripId { get; set; } = string.Empty;
 
         [Range(1, int.MaxValue, ErrorMessage = "Має бути заброньовано принаймні одне місце")]
         public int SeatsBooked {

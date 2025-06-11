@@ -4,7 +4,7 @@ using OOP_Project_Kovba.Data;
 using OOP_Project_Kovba.Models;
 using OOP_Project_Kovba.Interfaces;
 using OOP_Project_Kovba.Data.Repositories;
-using OOP_Project_Kovba;
+using OOP_Project_Kovba.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);

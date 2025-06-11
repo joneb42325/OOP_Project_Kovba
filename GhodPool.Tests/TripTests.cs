@@ -8,7 +8,7 @@ namespace GhodPool.Tests
     [TestClass]
     public class TripTests
     {
-        private ApplicationUser driver;
+        private ApplicationUser driver = null!;
         private DateTime departureTime;
         private DateTime arrivalTime;
 

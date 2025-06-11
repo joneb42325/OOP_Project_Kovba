@@ -4,7 +4,7 @@ using OOP_Project_Kovba.ViewModels;
 using OOP_Project_Kovba.Models;
 using System.Runtime.CompilerServices;
 
-namespace MyMVC.Controllers
+namespace OOP_Project_Kovba.Controllers
 {
     public class AccountController : Controller
     {

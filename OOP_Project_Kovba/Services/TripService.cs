@@ -2,7 +2,7 @@
 using OOP_Project_Kovba.Models;
 using OOP_Project_Kovba.ViewModels;
 using OOP_Project_Kovba.Services;
-namespace OOP_Project_Kovba
+namespace OOP_Project_Kovba.Services
 {
     public class TripService : ITripService
     {
@@ -28,7 +28,12 @@ namespace OOP_Project_Kovba
 
             if (trip == null)
             {
-                return null;
+                throw new InvalidOperationException();
+            }
+
+            if(trip.Driver.Email == null)
+            {
+                throw new InvalidOperationException();
             }
 
             var viewModel = new TripDetailsViewModel
@@ -56,12 +61,13 @@ namespace OOP_Project_Kovba
         {
             var trip = await _tripRepository.GetTripByIdAsync(tripId);
 
+            if (trip == null)
+                return (false, "Поїздку не знайдено", null);
+
             if (seatsBooked < 1 || seatsBooked > trip.MaxPassengers)
             {
                 return (false, "Некоректна кількість місць", await GetTripDetailsViewModelAsync(tripId));
             }
-            if (trip == null)
-                return (false, "Поїздку не знайдено", null);
 
             if (userId == trip.DriverId)
                 return (false, "Ви є водієм в цій поїздці.", await GetTripDetailsViewModelAsync(tripId));
