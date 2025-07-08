@@ -78,8 +78,8 @@ button[type="submit"] {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-    display: block; /* Делаем кнопку блочным элементом */
-    margin: 35px auto; /* Центрируем по горизонтали */
+    display: block; 
+    margin: 35px auto; 
     font-weight: bold;
 }
 
