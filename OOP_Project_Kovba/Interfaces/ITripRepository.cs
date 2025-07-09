@@ -8,5 +8,7 @@ namespace OOP_Project_Kovba.Interfaces
         public Task<Trip?> GetTripByIdAsync(string id);
         public Task UpdateTripAsync(Trip trip);
         public Task<IEnumerable<Trip>> GetAllDriverTrips(string userId);
+
+        //Patch line
     }
 }

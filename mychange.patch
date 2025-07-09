@@ -1,0 +1,12 @@
+diff --git a/OOP_Project_Kovba/Interfaces/ITripRepository.cs b/OOP_Project_Kovba/Interfaces/ITripRepository.cs
+index 71de29f..4f95f1a 100644
+--- a/OOP_Project_Kovba/Interfaces/ITripRepository.cs
++++ b/OOP_Project_Kovba/Interfaces/ITripRepository.cs
+@@ -8,5 +8,7 @@ namespace OOP_Project_Kovba.Interfaces
+         public Task<Trip?> GetTripByIdAsync(string id);
+         public Task UpdateTripAsync(Trip trip);
+         public Task<IEnumerable<Trip>> GetAllDriverTrips(string userId);
++
++        //Patch line
+     }
+ }
