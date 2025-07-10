@@ -174,6 +174,7 @@ namespace OOP_Project_Kovba.Controllers
             return RedirectToAction("PlannedTrips");
         }
 
+        /*
         public async Task<IActionResult> ExportPlannedTripsToWord()
         {
             var userId = _userManager.GetUserId(User);
@@ -208,4 +209,5 @@ namespace OOP_Project_Kovba.Controllers
             return RedirectToAction("PlannedTrips");
         }
     }
+        */
 }
