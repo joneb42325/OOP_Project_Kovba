@@ -24,6 +24,7 @@ namespace OOP_Project_Kovba.Controllers
             return View();
         }
 
+        /*
         public IActionResult Register()
         {
             return View();
@@ -58,6 +59,7 @@ namespace OOP_Project_Kovba.Controllers
         {
             return View();
         }
+        */
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
